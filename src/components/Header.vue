@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import {Sunny, Moon} from '@element-plus/icons-vue'
-import { ref } from 'vue'
-
-const centerDialogVisible = ref(false)
 
 </script>
 
@@ -29,29 +26,31 @@ const centerDialogVisible = ref(false)
                     <el-button class="pokedexBtn">Pokedex</el-button>
                 </div>
                 <div>
-                    <el-button text @click="centerDialogVisible = true">LogIn</el-button>
+                    <el-button text @click="centerDialogVisible = true">LogOut</el-button>
                 </div>
             </el-space>
+            <el-dialog v-model="centerDialogVisible" title="Register" width="50%" height="50%" center>
+    <el-form label-position='top' status-icon ref="ruleFormRef" :label-width="80">
 
-            <el-dialog v-model="centerDialogVisible" title="LogIn" width="30%" height="50%" center>
-                <el-form label-position='top' status-icon :label-width="80">
-                    <el-form-item label="Username">
-                        <el-input autofocus type="text" />
-                    </el-form-item>
+        <el-form-item label="Username">
+            <el-input autofocus placeholder="jsmith" type="text" />
+        </el-form-item>
 
-                    <el-form-item label="Password">
-                        <el-input type="password" />
-                    </el-form-item>
-                </el-form>
-                <template #footer>
-                    <span class="dialog-footer">
-                        <el-button @click="centerDialogVisible = false">Cancel</el-button>
-                        <el-button type="primary" @click="centerDialogVisible = false">
-                            Confirm
-                        </el-button>
-                    </span>
-                </template>
-            </el-dialog>
+        <el-form-item label="Password">
+            <el-input type="password" />
+        </el-form-item>
+
+        <el-button size='large' type="primary" class="w-full">Submit</el-button>
+    </el-form>
+    <template #footer>
+        <span class="dialog-footer">
+            <el-button @click="centerDialogVisible = false">Cancel</el-button>
+            <el-button type="primary" @click="centerDialogVisible = false">
+                Confirm
+            </el-button>
+        </span>
+    </template>
+</el-dialog>
         </div>
     </el-header>
 </template>
