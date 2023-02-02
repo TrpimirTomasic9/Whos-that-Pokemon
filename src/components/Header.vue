@@ -33,7 +33,7 @@ const centerDialogVisible = ref(false)
                 </div>
             </el-space>
 
-            <el-dialog v-model="centerDialogVisible" title="LogIn" width="30%" height="40%" center>
+            <el-dialog v-model="centerDialogVisible" title="LogIn" width="30%" height="50%" center>
                 <el-form label-position='top' status-icon :label-width="80">
                     <el-form-item label="Username">
                         <el-input autofocus type="text" />
