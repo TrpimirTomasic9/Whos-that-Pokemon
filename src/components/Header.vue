@@ -26,18 +26,23 @@ const centerDialogVisible = ref(false)
                         </el-icon></el-button>
                 </div>
                 <div>
-                    <el-button class="pokedexBtn" link>Pokedex</el-button>
+                    <el-button class="pokedexBtn">Pokedex</el-button>
                 </div>
                 <div>
                     <el-button text @click="centerDialogVisible = true">LogIn</el-button>
                 </div>
             </el-space>
 
-            <el-dialog v-model="centerDialogVisible" title="LogIn" width="40%" center>
-                <span>
-                    It should be noted that the content will not be aligned in center by
-                    default
-                </span>
+            <el-dialog v-model="centerDialogVisible" title="LogIn" width="30%" height="40%" center>
+                <el-form label-position='top' status-icon :label-width="80">
+                    <el-form-item label="Username">
+                        <el-input autofocus type="text" />
+                    </el-form-item>
+
+                    <el-form-item label="Password">
+                        <el-input type="password" />
+                    </el-form-item>
+                </el-form>
                 <template #footer>
                     <span class="dialog-footer">
                         <el-button @click="centerDialogVisible = false">Cancel</el-button>
@@ -47,7 +52,6 @@ const centerDialogVisible = ref(false)
                     </span>
                 </template>
             </el-dialog>
-
         </div>
     </el-header>
 </template>
@@ -73,7 +77,7 @@ const centerDialogVisible = ref(false)
     display: block;
 }
 .search{
-    /* display: block; */
+    display: block;
     padding: 5px;
     border-radius: 4px;
     font-size: 14px;
@@ -82,9 +86,17 @@ const centerDialogVisible = ref(false)
     float: right;
 }
 
+.search::placeholder {
+  opacity: 0.5;
+}
+
 .navbar-right{
     align-items: center;
     justify-content: space-between;
 }
 
+.pokedexBtn{
+    background-color: black;
+    color: whitesmoke;
+}
 </style>
