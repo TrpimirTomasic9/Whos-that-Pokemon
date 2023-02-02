@@ -22,9 +22,9 @@ import Header from './components/Header.vue'
 }
 .hero{
   background-size: cover;
-  max-width: 100%;
-  max-height: 100%;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
-
 </style>
 
