@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {Sunny, Moon} from '@element-plus/icons-vue'
+import { ref } from 'vue'
 
+const pokedexVisible = ref(false)
 </script>
 
 <template>
@@ -23,34 +25,15 @@ import {Sunny, Moon} from '@element-plus/icons-vue'
                         </el-icon></el-button>
                 </div>
                 <div>
-                    <el-button class="pokedexBtn">Pokedex</el-button>
+                    <el-button class="pokedexBtn" onclick="open = !open">Pokedex</el-button>
+
                 </div>
                 <div>
-                    <el-button text @click="centerDialogVisible = true">LogOut</el-button>
+                    
+                    <el-button text>LogOut</el-button>
                 </div>
             </el-space>
-            <el-dialog v-model="centerDialogVisible" title="Register" width="50%" height="50%" center>
-    <el-form label-position='top' status-icon ref="ruleFormRef" :label-width="80">
 
-        <el-form-item label="Username">
-            <el-input autofocus placeholder="jsmith" type="text" />
-        </el-form-item>
-
-        <el-form-item label="Password">
-            <el-input type="password" />
-        </el-form-item>
-
-        <el-button size='large' type="primary" class="w-full">Submit</el-button>
-    </el-form>
-    <template #footer>
-        <span class="dialog-footer">
-            <el-button @click="centerDialogVisible = false">Cancel</el-button>
-            <el-button type="primary" @click="centerDialogVisible = false">
-                Confirm
-            </el-button>
-        </span>
-    </template>
-</el-dialog>
         </div>
     </el-header>
 </template>
@@ -63,6 +46,7 @@ import {Sunny, Moon} from '@element-plus/icons-vue'
   top: 0;
   left: 0;
   right: 0;
+  opacity: 0.9;
 }
 .navbar-content{
     align-items: center;
@@ -98,4 +82,5 @@ import {Sunny, Moon} from '@element-plus/icons-vue'
     background-color: black;
     color: whitesmoke;
 }
+ 
 </style>
