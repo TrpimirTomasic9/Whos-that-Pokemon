@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios';
 
-export const useStore = defineStore("pokeStore", {
+export const pokeStore = defineStore("pokemons", {
 state: () => {
     return {};
 },

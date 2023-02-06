@@ -1,4 +1,28 @@
-<script setup>
+<script>
+import {ref} from 'vue';
+import {pokeStore} from '../store/store';
+
+export default {
+  data () {
+    return {
+      pokemons: null
+    }
+  },
+  computed: {
+  },
+  async mounted () {
+    await this.$store.get('getPokemonData', { limit: 151 }).then((res) => {
+      this.pokemons = res.results
+      console.log(this.pokemons)
+    }).catch((err) => {
+      return err
+    })
+  },
+  methods: {
+  }
+}
+
+
 </script>
 
  <template>
@@ -14,6 +38,8 @@
 </div>
   </div>
 </template>
+
+<!--  -->
 
 <style scoped>
 .common-layout {
