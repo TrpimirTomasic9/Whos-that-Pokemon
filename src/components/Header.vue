@@ -37,7 +37,8 @@ async function GetAllPokemons() {
 onMounted(async () => {
     try {
             const res = await axios.get(baseURL + 'users');
-            this.users = res.data;
+            let users = res.data;
+            console.log(users)
         } catch (e) {
             console.error(e)
         }
@@ -129,7 +130,7 @@ function aaa(){
                 <el-form label-position='top' status-icon :label-width="80">
 
                     <el-form-item label="Email">
-                        <el-input autofocus type="email" id='email' placeholder="Enter Email" v-model="email" @change="aaa" />
+                        <el-input type="email" id='email' placeholder="Enter Email" v-model="email" @change="aaa" />
                         <div class="input-message" v-if="emailError"><h6>{{emailError}}</h6></div>
                     </el-form-item>
 
