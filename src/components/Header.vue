@@ -1,6 +1,6 @@
 <script setup>
 import {Sunny, Moon} from '@element-plus/icons-vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import Home from '../views/Home.vue'
 import { pokeStore } from '../store/store'
@@ -13,10 +13,10 @@ const LogInModalVisible = ref(false)
 
 let allpokemons = []
 
-var baseURL = 'http://localhost:5173/'
+var baseURL = 'http://localhost:3000/'
 var userURL = baseURL + "users";
 
-let users = []
+let users = ref(null)
 let email = ref(null)
 let password = ref(null)
 let emailError = ref(null)
@@ -34,18 +34,17 @@ async function GetAllPokemons() {
   }
 }
 
-/* async mounted() {
-        try {
+onMounted(async () => {
+    try {
             const res = await axios.get(baseURL + 'users');
             this.users = res.data;
         } catch (e) {
             console.error(e)
         }
-    } */
+  })
 
 async function loginSubmit()
 {
-    var email = this.$refs.emailref.value;
     if(email.lenght == 0)
     {
         this.emailError = "Field is empty"
@@ -55,7 +54,6 @@ async function loginSubmit()
         this.emailError = null
     }
 
-    var password = this.$refs.passwordref.value;
     if(password.length == 0)
     {
         this.passwordError = "Field is empty!";
@@ -74,14 +72,14 @@ async function loginSubmit()
 
     for (var i = 0; i < this.users.length; i++)
             {
-                if (this.users[i].email == this.$refs.emailref.value)
+                if (this.users[i].email == this.email.value)
                 {
-                    if (this.users[i].password == this.$refs.passwordref.value)
+                    if (this.users[i].password == this.email.value)
                     {
                         this.passwordValidation = true;
                         VueCookies.set('username', this.users[i].username, "120min");
-                        VueCookies.set('email', this.$refs.emailref.value, "120min");
-                        VueCookies.set('password', this.$refs.passwordref.value, "120min");
+                        VueCookies.set('email', this.$.email.value, "120min");
+                        VueCookies.set('password', this.password.value, "120min");
                         VueCookies.set('id', this.users[i].id, "120min");
 
                         window.location.href = '/';
@@ -90,11 +88,14 @@ async function loginSubmit()
                     }
                 }
             }
-             if(this.passwordValidation == false){ this.passwordError = "Inccorect password or username!"}
+             if(this.passwordValidation == false)
+             { this.passwordError = "Inccorect password or username!"}
 }
 
 GetAllPokemons()
-
+function aaa(){
+    console.log(email.value)
+}
 </script>
 
 <template>
@@ -125,16 +126,17 @@ GetAllPokemons()
                 </div>
             </el-space>
             <el-dialog v-model="LogInModalVisible" title="LogIn" width="50%" height="50%" center>
-                <el-form label-position='top' status-icon ref="ruleFormRef" :label-width="80">
+                <el-form label-position='top' status-icon :label-width="80">
 
                     <el-form-item label="Email">
-                        <el-input autofocus type="email" id='email' placeholder="Enter Email" v-model="email" ref="emailref"
-/>
+                        <el-input autofocus type="email" id='email' placeholder="Enter Email" v-model="email" @change="aaa" />
                         <div class="input-message" v-if="emailError"><h6>{{emailError}}</h6></div>
                     </el-form-item>
 
                     <el-form-item label="Password">
-                        <el-input type="password" id='password' placeholder="Enter Password" v-model="password" ref="passwordref"/>
+                        <el-input type="password" id='password' placeholder="Enter Password" v-model="password" />
+
+                        <div class="input-message" v-if="passwordError"><h6>{{passwordError}}</h6></div>
                     </el-form-item>
 
                 </el-form>
