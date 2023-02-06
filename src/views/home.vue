@@ -2,7 +2,7 @@
 import {ref} from 'vue';
 import {pokeStore} from '../store/store';
 
-export default {
+/* export default {
   data () {
     return {
       pokemons: null
@@ -20,7 +20,7 @@ export default {
   },
   methods: {
   }
-}
+} */
 
 
 </script>
@@ -38,8 +38,6 @@ export default {
 </div>
   </div>
 </template>
-
-<!--  -->
 
 <style scoped>
 .common-layout {

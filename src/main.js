@@ -7,12 +7,14 @@ import './css/base.css'
 
 import { createPinia } from "pinia";
 import axios from 'axios'
+import VueCookies from 'vue-cookies'
 
 /* Vue.prototype.$http = axios */
 
 
 const app = createApp(App)
 
+app.use(VueCookies)
 app.use(router)
 app.use(ElementPlus)
 app.use(createPinia())
