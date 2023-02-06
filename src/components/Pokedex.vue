@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 const pokedexVisible = ref(false)
-props: ['open']
+
 
 </script>
 

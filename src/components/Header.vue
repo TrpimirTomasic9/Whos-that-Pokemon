@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {Sunny, Moon} from '@element-plus/icons-vue'
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
+import Home from '../views/Home.vue'
 
 const pokedexVisible = ref(false)
 </script>
@@ -25,11 +27,9 @@ const pokedexVisible = ref(false)
                         </el-icon></el-button>
                 </div>
                 <div>
-                    <el-button class="pokedexBtn" onclick="open = !open">Pokedex</el-button>
-
+                    <el-button v-model="pokedexVisible" class="pokedexBtn">Pokedex</el-button>
                 </div>
                 <div>
-                    
                     <el-button text>LogOut</el-button>
                 </div>
             </el-space>
