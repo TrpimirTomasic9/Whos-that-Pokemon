@@ -1,20 +1,17 @@
 <script setup>
 import { RouterView } from 'vue-router'
+import { ref } from 'vue'
+
+const LoggedIn = ref(false)
 </script>
 
 <template>
   <div class="common-layout">
-    <div class="imageBox">
-      <div>
-        <img class="hero" src="src/assets/images/hero-image.jpg"/>
+      <img class="hero" src="src/assets/images/hero-image.jpg"/>
+      <div class="hovertext" style="margin:0 auto;">
+        <img class="pokemonText" style="height: 150px; width: 350px; margin:0 auto;" src="src/assets/images/pokemon-text.png"/>
+        <img class="pokeball" style="height: 250px; width: 250px; margin:0 auto;" src="/src/assets/images/logo.png"/>
       </div>
-    <div class="hovertext" style="margin:0 auto;">
-    <img class="pokemonText"  style="height: 150px; width: 350px; margin:0 auto;" src="src/assets/images/pokemon-text.png"/>
-  </div>
-  <div class="hoverball" style="margin:0 auto;">
-    <img class="pokeball"  style="height: 250px; width: 250px; margin:0 auto;" src="/src/assets/images/logo.png"/>
-  </div>
-</div>
   </div>
 </template>
 
@@ -49,24 +46,16 @@ import { RouterView } from 'vue-router'
   display:block;
   height:min-content;
 }
-.imageBox {
-  position: relative;
+
+.image-box{
+  max-height: 90vh;
 }
 
-.imageBox .hovertext {
+.hovertext {
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
-  display:block;
-  height:min-content;
-}
-.imageBox .hoverball {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  display:block;
   height:min-content;
 }
 
