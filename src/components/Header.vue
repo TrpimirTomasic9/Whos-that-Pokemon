@@ -6,6 +6,7 @@ import Home from '../views/Home.vue'
 import { pokeStore } from '../store/store'
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
+import Pokedex from './Pokedex.vue'
 
 const pokedexVisible = ref(false)
 const PokemonStore = pokeStore();
@@ -28,7 +29,7 @@ async function GetAllPokemons() {
   try {
     let response = await PokemonStore.getPokemonData();
     allpokemons.value = response.data;
-    console.log(allpokemons.value)
+    /* console.log(allpokemons.value) */
   } catch (error) {
     throw error;
   }
@@ -37,8 +38,10 @@ async function GetAllPokemons() {
 onMounted(async () => {
     try {
             const res = await axios.get(baseURL + 'users');
-            let users = res.data;
-            console.log(users)
+            users = res.data;
+            /* console.log(users) */
+
+            /* loginSubmit() */
         } catch (e) {
             console.error(e)
         }
@@ -68,35 +71,31 @@ async function loginSubmit()
         this.passwordError = null
     }
 
-    const res = await axios.get(userURL);
-    this.users = res.data;
+    /* const res = await axios.get(userURL);
+    this.users = res.data; */
 
-    for (var i = 0; i < this.users.length; i++)
+   for (var i = 0; i <users.length; i++)
             {
                 if (this.users[i].email == this.email.value)
                 {
-                    if (this.users[i].password == this.email.value)
+                    if (this.users[i].password == this.password.value)
                     {
                         this.passwordValidation = true;
                         VueCookies.set('username', this.users[i].username, "120min");
-                        VueCookies.set('email', this.$.email.value, "120min");
+                        VueCookies.set('email', this.email.value, "120min");
                         VueCookies.set('password', this.password.value, "120min");
                         VueCookies.set('id', this.users[i].id, "120min");
 
                         window.location.href = '/';
                         alert("Login successful");
-                        
                     }
                 }
             }
-             if(this.passwordValidation == false)
-             { this.passwordError = "Inccorect password or username!"}
-}
+             if(this.passwordValidation == false){ this.passwordError = "Inccorect password or username!"}
+        }
 
 GetAllPokemons()
-function aaa(){
-    console.log(email.value)
-}
+
 </script>
 
 <template>
@@ -119,8 +118,8 @@ function aaa(){
                         </el-icon></el-button>
                 </div>
                 <div>
-                    <el-button v-model="pokedexVisible" class="pokedexBtn">Pokedex</el-button>
-
+                    <el-button @click="pokedexVisible = true" class="pokedexBtn">Pokedex</el-button>
+                    <!-- <router-link  @click="pokedexVisible = true" to="/pokedex" class="nav-link">Pokedex</router-link> -->
                 </div>
                 <div>
                     <el-button @click="LogInModalVisible = true" text>LogIn</el-button>
@@ -130,7 +129,7 @@ function aaa(){
                 <el-form label-position='top' status-icon :label-width="80">
 
                     <el-form-item label="Email">
-                        <el-input type="email" id='email' placeholder="Enter Email" v-model="email" @change="aaa" />
+                        <el-input type="email" id='email' placeholder="Enter Email" v-model="email" />
                         <div class="input-message" v-if="emailError"><h6>{{emailError}}</h6></div>
                     </el-form-item>
 

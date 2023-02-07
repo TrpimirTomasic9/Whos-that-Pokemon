@@ -22,7 +22,6 @@ import {pokeStore} from '../store/store';
   }
 } */
 
-
 </script>
 
  <template>

@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import Header from './components/Header.vue'
+import Pokedex from './components/Pokedex.vue'
 import Home from './views/Home.vue'
 </script>
 
@@ -10,7 +11,6 @@ import Home from './views/Home.vue'
     <el-container>
       <Header />
     </el-container>
-   <!--  <RouterView /> -->
   </div>
   
 </template>
