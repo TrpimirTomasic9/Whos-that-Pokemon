@@ -29,11 +29,28 @@ async function GetAllPokemons() {
   try {
     let response = await PokemonStore.getPokemonData();
     allpokemons.value = response.data;
+/*     let randomPokemon = allpokemons[Math.floor(Math.random()*allpokemons.length)];
+    console.log(randomPokemon) */
     /* console.log(allpokemons.value) */
   } catch (error) {
     throw error;
   }
 }
+
+/* function getRandomItem(allpokemons) {
+
+// get random index value
+const randomIndex = Math.floor(Math.random() * allpokemons.length);
+
+// get random item
+const item = allpokemons[randomIndex];
+
+return item;
+}
+
+const result = getRandomItem(allpokemons);
+console.log(result); */
+
 
 onMounted(async () => {
     try {
@@ -127,7 +144,6 @@ GetAllPokemons()
             </el-space>
             <el-dialog v-model="LogInModalVisible" title="LogIn" width="50%" height="50%" center>
                 <el-form label-position='top' status-icon :label-width="80">
-
                     <el-form-item label="Email">
                         <el-input type="email" id='email' placeholder="Enter Email" v-model="email" />
                         <div class="input-message" v-if="emailError"><h6>{{emailError}}</h6></div>

@@ -1,33 +1,14 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import Header from './components/Header.vue'
-import Pokedex from './components/Pokedex.vue'
 import Home from './views/Home.vue'
 </script>
 
- <template>
-  <div class="common-layout">
-    <img class="hero" src="src/assets/images/hero-image.jpg"/>
-    <el-container>
+<template>
+  <RouterView />
+  <el-container>
       <Header />
     </el-container>
-  </div>
-  
 </template>
 
-<style scoped>
-.common-layout {
-  display: grid;
-  min-height: 100vh;
-  grid-template-rows: auto 1fr auto; 
-}
-.hero{
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  filter: brightness(50%)
-}
-
-</style>
 
