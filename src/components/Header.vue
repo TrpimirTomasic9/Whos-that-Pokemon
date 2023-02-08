@@ -28,10 +28,9 @@ let passwordValidation = ref(false)
 async function GetAllPokemons() {
   try {
     let response = await PokemonStore.getPokemonData();
-    allpokemons.value = response.data;
-/*     let randomPokemon = allpokemons[Math.floor(Math.random()*allpokemons.length)];
-    console.log(randomPokemon) */
-    /* console.log(allpokemons.value) */
+    allpokemons.value = response.data.results;
+    let randomPokemon = allpokemons.value[Math.floor(Math.random() * 151) + 1]
+    console.log(randomPokemon)
   } catch (error) {
     throw error;
   }
