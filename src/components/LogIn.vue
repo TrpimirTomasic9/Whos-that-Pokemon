@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
 
-const LogInModalVisible = ref(true)
+const LogInModalVisible = ref(false)
 
 var baseURL = 'http://localhost:3000/'
 var userURL = baseURL + "users";

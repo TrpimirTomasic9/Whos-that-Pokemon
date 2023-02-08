@@ -1,8 +1,28 @@
 <script setup>
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
+import { pokeStore } from '../store/store'
+const PokemonStore = pokeStore();
 
 const LoggedIn = ref(false)
+
+let allpokemons = []
+
+async function GetAllPokemons() {
+  try {
+    let response = await PokemonStore.getPokemonData();
+    allpokemons.value = response.data.results;
+    let randomPokemon = allpokemons.value[Math.floor(Math.random() * 151) + 1]
+    console.log(randomPokemon)
+
+    let randomPokemonName = randomPokemon.name
+    console.log(randomPokemonName)
+  } catch (error) {
+    throw error;
+  }
+}
+
+GetAllPokemons()
 </script>
 
 <template>

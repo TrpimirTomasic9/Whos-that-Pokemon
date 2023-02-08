@@ -1,32 +1,13 @@
 <script setup>
 import {Sunny, Moon} from '@element-plus/icons-vue'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import Home from '../views/Home.vue'
-import { pokeStore } from '../store/store'
-import VueCookies from 'vue-cookies'
 import axios from 'axios';
 import Pokedex from './Pokedex.vue'
 import Login from './LogIn.vue'
 
 const pokedexVisible = ref(false)
-const PokemonStore = pokeStore();
 const LogInModalVisible = ref(false)
-
-let allpokemons = []
-
-async function GetAllPokemons() {
-  try {
-    let response = await PokemonStore.getPokemonData();
-    allpokemons.value = response.data.results;
-    let randomPokemon = allpokemons.value[Math.floor(Math.random() * 151) + 1]
-    console.log(randomPokemon)
-  } catch (error) {
-    throw error;
-  }
-}
-
-GetAllPokemons()
 
 </script>
 
@@ -53,7 +34,6 @@ GetAllPokemons()
                 </div>
                 <div>
                     <el-button @click="pokedexVisible = true" class="pokedexBtn">Pokedex</el-button>
-                    <!-- <router-link  @click="pokedexVisible = true" to="/pokedex" class="nav-link">Pokedex</router-link> -->
                 </div>
                 <div>
                     <el-button @click="LogInModalVisible = true" text>LogIn<Login /></el-button>
