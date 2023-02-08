@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Register from '../components/Register.vue'
 import Login from '../components/Login.vue'
 import Home from '../views/Home.vue'
 import Pokedex from '../components/Pokedex.vue'
@@ -18,11 +17,6 @@ const router = createRouter({
       path: '/pokedex',
       name: 'Pokedex',
       component: Pokedex
-    },
-    {
-      path: '/register',
-      name: 'Register',
-      component: Register
     },
     {
       path: '/login',

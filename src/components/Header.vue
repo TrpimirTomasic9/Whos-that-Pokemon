@@ -7,23 +7,13 @@ import { pokeStore } from '../store/store'
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
 import Pokedex from './Pokedex.vue'
+import Login from './LogIn.vue'
 
 const pokedexVisible = ref(false)
 const PokemonStore = pokeStore();
 const LogInModalVisible = ref(false)
 
 let allpokemons = []
-
-var baseURL = 'http://localhost:3000/'
-var userURL = baseURL + "users";
-
-let users = ref(null)
-let email = ref(null)
-let password = ref(null)
-let emailError = ref(null)
-let passwordError =ref(null)
-let passwordValidation = ref(false)
-
 
 async function GetAllPokemons() {
   try {
@@ -36,80 +26,6 @@ async function GetAllPokemons() {
   }
 }
 
-/* function getRandomItem(allpokemons) {
-
-// get random index value
-const randomIndex = Math.floor(Math.random() * allpokemons.length);
-
-// get random item
-const item = allpokemons[randomIndex];
-
-return item;
-}
-
-const result = getRandomItem(allpokemons);
-console.log(result); */
-
-
-onMounted(async () => {
-    try {
-            const res = await axios.get(baseURL + 'users');
-            users = res.data;
-            /* console.log(users) */
-
-            /* loginSubmit() */
-        } catch (e) {
-            console.error(e)
-        }
-  })
-
-async function loginSubmit()
-{
-    if(email.lenght == 0)
-    {
-        this.emailError = "Field is empty"
-    }
-    else
-    {
-        this.emailError = null
-    }
-
-    if(password.length == 0)
-    {
-        this.passwordError = "Field is empty!";
-    }
-    else if(password.length>0 && password.length<8)
-    { 
-        this.passwordError = "Password is too short!"
-    }
-    else
-    {
-        this.passwordError = null
-    }
-
-    /* const res = await axios.get(userURL);
-    this.users = res.data; */
-
-   for (var i = 0; i <users.length; i++)
-            {
-                if (this.users[i].email == this.email.value)
-                {
-                    if (this.users[i].password == this.password.value)
-                    {
-                        this.passwordValidation = true;
-                        VueCookies.set('username', this.users[i].username, "120min");
-                        VueCookies.set('email', this.email.value, "120min");
-                        VueCookies.set('password', this.password.value, "120min");
-                        VueCookies.set('id', this.users[i].id, "120min");
-
-                        window.location.href = '/';
-                        alert("Login successful");
-                    }
-                }
-            }
-             if(this.passwordValidation == false){ this.passwordError = "Inccorect password or username!"}
-        }
-
 GetAllPokemons()
 
 </script>
@@ -118,7 +34,9 @@ GetAllPokemons()
     <el-header class="navbar">
         <div class="navbar-content">
             <div>
-                <img class="logo" src="/src/assets/images/logo.png" />
+                <router-link to="/" custom v-slot="{ navigate }">
+                <img @click="navigate" role="link" class="logo" src="/src/assets/images/logo.png" />
+            </router-link>
             </div>
             <el-space size="large">
                 <div>
@@ -138,32 +56,9 @@ GetAllPokemons()
                     <!-- <router-link  @click="pokedexVisible = true" to="/pokedex" class="nav-link">Pokedex</router-link> -->
                 </div>
                 <div>
-                    <el-button @click="LogInModalVisible = true" text>LogIn</el-button>
+                    <el-button @click="LogInModalVisible = true" text>LogIn<Login /></el-button>
                 </div>
             </el-space>
-            <el-dialog v-model="LogInModalVisible" title="LogIn" width="50%" height="50%" center>
-                <el-form label-position='top' status-icon :label-width="80">
-                    <el-form-item label="Email">
-                        <el-input type="email" id='email' placeholder="Enter Email" v-model="email" />
-                        <div class="input-message" v-if="emailError"><h6>{{emailError}}</h6></div>
-                    </el-form-item>
-
-                    <el-form-item label="Password">
-                        <el-input type="password" id='password' placeholder="Enter Password" v-model="password" />
-
-                        <div class="input-message" v-if="passwordError"><h6>{{passwordError}}</h6></div>
-                    </el-form-item>
-
-                </el-form>
-                <template #footer>
-                    <span class="dialog-footer">
-                        <el-button @click="LogInModalVisible = false">Cancel</el-button>
-                        <el-button type="primary" @click="LogInModalVisible = false; loginSubmit()">
-                            Confirm
-                        </el-button>
-                    </span>
-                </template>
-            </el-dialog>
         </div>
     </el-header>
 </template>
