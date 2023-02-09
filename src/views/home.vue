@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
 import { pokeStore } from '../store/store'
@@ -6,12 +6,28 @@ const PokemonStore = pokeStore();
 
 const LoggedIn = ref(false)
 
-let allpokemons = []
+ let pokemonId = ref<any>()
 
-async function GetAllPokemons() {
+ async function GetPokemons() {
   try {
-    let response = await PokemonStore.getPokemonData();
-    allpokemons.value = response.data.results;
+    let response = await PokemonStore.getOnePokemon();
+    pokemonId.value = response;
+    
+    console.log(pokemonId.value)
+  } catch (error) {
+    throw error;
+  }
+}
+
+GetPokemons()
+
+/* let allpokemons = [] */
+
+/* async function GetPokemons() {
+  try {
+    let response = await PokemonStore.getAllPokemons();
+    allpokemons.value = response;
+
     let randomPokemon = allpokemons.value[Math.floor(Math.random() * 151) + 1]
     console.log(randomPokemon)
 
@@ -22,16 +38,24 @@ async function GetAllPokemons() {
   }
 }
 
-GetAllPokemons()
+GetPokemons() */
 </script>
 
 <template>
   <div class="common-layout">
       <img class="hero" src="src/assets/images/hero-image.jpg"/>
-      <div class="hovertext" style="margin:0 auto;">
+      <div v-if="LoggedIn" class="hovertext" style="margin:0 auto;">
         <img class="pokemonText" style="height: 150px; width: 350px; margin:0 auto;" src="src/assets/images/pokemon-text.png"/>
         <img class="pokeball" style="height: 250px; width: 250px; margin:0 auto;" src="/src/assets/images/logo.png"/>
       </div>
+        <template>
+          <div>
+        <el-dialog title="game" width="50%" height="50%" center>
+          <el-form label-position='top' status-icon ref="ruleFormRef" :label-width="80">
+          </el-form>
+        </el-dialog>
+      </div>
+      </template>
   </div>
 </template>
 
