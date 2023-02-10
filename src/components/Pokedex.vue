@@ -8,10 +8,19 @@ const pokedexVisible = ref(true)
 
 <template>
 <el-dialog v-model="pokedexVisible" title="Pokedex" width="50%" height="50%" center>
-    <el-form label-position='top' status-icon ref="ruleFormRef" :label-width="80">
-    </el-form>
+    <template #header>
+        <img class="pokedex-texImg" src="/src/assets/images/pokedex-text.png" />
+    </template>
+    <template #default>
+            
+        </template>
 </el-dialog>
 </template>
 
 <style>
+.pokedex-texImg{
+    width: 100%;
+    max-width: 30%;
+    text-align: center;
+}
 </style>

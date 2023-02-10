@@ -79,7 +79,7 @@ function submitAnswer(){
                         </el-icon></el-button>
                 </div>
                 <div>
-                    <el-button @click="pokedexVisible = true" link><img class="pokedex" src="/src/assets/images/pokedex.png" /></el-button>
+                    <el-button  @click="router.push('pokedex')" link><img class="pokedex" src="/src/assets/images/pokedex.png" /></el-button>
                 </div>
                 <div>
                     <el-button @click="game = true" link><img class="game" src="/src/assets/images/joystick.png" /></el-button>
@@ -130,7 +130,7 @@ function submitAnswer(){
 
 <style scoped>
 .navbar {
-    z-index: 1;
+  z-index: 1;
   background-color: whitesmoke;
   padding: 5px 30px;
   position: fixed;

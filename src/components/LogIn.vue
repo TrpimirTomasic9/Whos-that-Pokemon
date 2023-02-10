@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
 
-const LogInModalVisible = ref(false)
+const LogInModalVisible = ref(true)
 
 var baseURL = 'http://localhost:3000/'
 var userURL = baseURL + "users";
@@ -84,8 +84,8 @@ async function loginSubmit()
 </script>
 
 <template>
-    <div >
-        <!-- <el-dialog v-model="LogInModalVisible" title="LogIn" width="50%" height="50%" center> -->
+    <div v-if="login" >
+        <el-dialog v-model="LogInModalVisible" title="LogIn" width="50%" height="50%" center>
             <el-form label-position='top' status-icon :label-width="80">
 
                 <el-form-item label="Email">
@@ -115,10 +115,10 @@ async function loginSubmit()
                 <el-link type="primary" @click='login =  false'>Sign-up now!</el-link>
             </div>
         </div>
-        <!-- </el-dialog> -->
+        </el-dialog>
     </div>
 
-    <div >
+    <div v-else>
         <el-dialog v-model="LogInModalVisible" title="SignUp" width="50%" height="50%" center>
             <el-form lebel-position='top' status-icon :label-width="80">
 

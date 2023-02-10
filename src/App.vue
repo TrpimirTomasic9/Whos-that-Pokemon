@@ -5,9 +5,9 @@ import Home from './views/Home.vue'
 </script>
 
 <template>
-  <el-container>
+  <div>
     <Header />
     <RouterView />
-  </el-container>
+  </div> 
 </template>
 
