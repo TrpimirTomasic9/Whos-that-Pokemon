@@ -3,6 +3,7 @@ import Login from '../components/Login.vue'
 import Home from '../views/Home.vue'
 import Pokedex from '../components/Pokedex.vue'
 import App from '/src/App.vue'
+import Game from '../components/Game.vue'
 
 
 const router = createRouter({
@@ -22,6 +23,11 @@ const router = createRouter({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/game',
+      name: 'Game',
+      component: Game
     },
   ]
 })

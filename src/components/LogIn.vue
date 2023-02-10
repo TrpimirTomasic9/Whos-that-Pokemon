@@ -84,8 +84,8 @@ async function loginSubmit()
 </script>
 
 <template>
-    <div v-if="login">
-        <el-dialog v-model="LogInModalVisible" title="LogIn" width="50%" height="50%" center>
+    <div >
+        <!-- <el-dialog v-model="LogInModalVisible" title="LogIn" width="50%" height="50%" center> -->
             <el-form label-position='top' status-icon :label-width="80">
 
                 <el-form-item label="Email">
@@ -115,10 +115,10 @@ async function loginSubmit()
                 <el-link type="primary" @click='login =  false'>Sign-up now!</el-link>
             </div>
         </div>
-        </el-dialog>
+        <!-- </el-dialog> -->
     </div>
 
-    <div v-else>
+    <div >
         <el-dialog v-model="LogInModalVisible" title="SignUp" width="50%" height="50%" center>
             <el-form lebel-position='top' status-icon :label-width="80">
 

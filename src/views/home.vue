@@ -13,7 +13,7 @@ const LoggedIn = ref(false)
     let response = await PokemonStore.getOnePokemon();
     pokemonId.value = response;
     
-    console.log(pokemonId.value)
+    /* console.log(pokemonId.value) */
   } catch (error) {
     throw error;
   }
@@ -66,6 +66,7 @@ GetPokemons() */
   grid-template-rows: auto 1fr auto; 
 }
 .hero{
+  z-index: 0;
   background-size: cover;
   width: 100%;
   height: 100vh;
