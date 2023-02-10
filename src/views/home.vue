@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
-import { pokeStore } from '../store/store'
+import { pokeStore } from '../store/pokemonStore'
 const PokemonStore = pokeStore();
 
 const LoggedIn = ref(false)

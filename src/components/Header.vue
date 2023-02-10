@@ -6,8 +6,11 @@ import router from '../router/index'
 import axios from 'axios';
 import Pokedex from './Pokedex.vue'
 import Login from './LogIn.vue'
-import { pokeStore } from '../store/store'
+import { pokeStore } from '../store/pokemonStore'
+import { usePokedexStore } from '../store/pokedexStore';
+import { useLoginStore } from '../store/loginStore';
 const PokemonStore = pokeStore();
+
 
 const pokedexVisible = ref(false)
 const LogInModalVisible = ref(false)
@@ -17,6 +20,8 @@ let correct = ref<boolean>(false)
 let inccorect = ref<boolean>(false)
 let pokemonName = ref<string>('')
 
+const pokedexStore = usePokedexStore();
+const loginStore = useLoginStore();
 
 const LoggedIn = ref(false)
 
@@ -55,7 +60,6 @@ function submitAnswer(){
 }
 
 
-
 </script>
 
 <template>
@@ -79,13 +83,13 @@ function submitAnswer(){
                         </el-icon></el-button>
                 </div>
                 <div>
-                    <el-button  @click="router.push('pokedex')" link><img class="pokedex" src="/src/assets/images/pokedex.png" /></el-button>
+                    <el-button  @click="pokedexStore.changeModal()" link><img class="pokedex" src="/src/assets/images/pokedex.png" /></el-button>
                 </div>
                 <div>
                     <el-button @click="game = true" link><img class="game" src="/src/assets/images/joystick.png" /></el-button>
                 </div>
                 <div>
-                    <el-button @click="router.push('login')">LogIn</el-button>
+                    <el-button @click="loginStore.changeModal()">LogIn</el-button>
                 </div>
             </el-space>
         </div>
