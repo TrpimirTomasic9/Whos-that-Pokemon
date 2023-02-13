@@ -55,8 +55,7 @@ function submitAnswer(){
 </script>
 
 <template>
-    <el-skeleton v-if="isLoading" />
-    <el-dialog v-else v-model="gameStore.showModal" width="35%" height="50%" center @keyup.enter="submitAnswer" >
+    <el-dialog v-if="!isLoading"  v-model="gameStore.showModal" width="35%" height="50%" center @keyup.enter="submitAnswer" >
         <template #header>
             <img class="whosThatPokeImg" src="/src/assets/images/Whos-that-Pokemon.png" />
         </template>
