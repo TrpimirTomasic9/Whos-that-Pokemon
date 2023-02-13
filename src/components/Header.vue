@@ -88,7 +88,7 @@ function submitAnswer(){
                 <div>
                     <el-button @click="game = true" link><img class="game" src="/src/assets/images/joystick.png" /></el-button>
                 </div>
-                <div>
+                <div v-if="loginStore.loggedIn == ''">
                     <el-button @click="loginStore.changeModal()">LogIn</el-button>
                 </div>
             </el-space>
@@ -121,7 +121,7 @@ function submitAnswer(){
                         <el-button id="submitBtn" @click="submitAnswer()" :disabled="!pokemonName.length">Submit</el-button>
                         <el-button id="skipBtn" @click="LogInModalVisible = false; getRandomPokemon() ">Skip
                             <el-icon class="el-icon--right"><ArrowRight /></el-icon></el-button>
-                        <el-button id="pokedexGameBtn" @click="LogInModalVisible = false">Pokedex</el-button>
+                        <el-button id="pokedexGameBtn">Pokedex</el-button>
                     </span>
                 </div>
             </template>

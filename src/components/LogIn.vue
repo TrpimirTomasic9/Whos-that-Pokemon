@@ -2,23 +2,24 @@
 import { ref, onMounted } from 'vue'
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
+import { useLoginStore } from '../store/loginStore';
 
 const LogInModalVisible = ref(true)
+const loginStore = useLoginStore();
 
 var baseURL = 'http://localhost:3000/'
 var userURL = baseURL + "users";
 
 let users = ref(null)
-let username = ref(null)
-let email = ref(null)
-let password = ref(null)
+let username = ref("")
+let email = ref("")
+let password = ref("")
 let login = ref(true)
 let signup = ref(true)
 
 let usernameError = ref(null)
 let emailError = ref(null)
 let passwordError =ref(null)
-let passwordValidation = ref(false)
 let signupvalidation = ref(false)
 
 
@@ -26,7 +27,7 @@ onMounted(async () => {
     try {
             const res = await axios.get(baseURL + 'users');
             users = res.data;
-            /* console.log(users) */
+           /*  console.log(users) */
 
             /* loginSubmit() */
         } catch (e) {
@@ -60,26 +61,96 @@ async function loginSubmit()
 
     /* const res = await axios.get(userURL);
     this.users = res.data; */
+    let passwordValidation = true;
 
-   for (var i = 0; i <users.length; i++)
+    /* console.log(this.email)
+    console.log(this.password) */
+
+    for (var i = 0; i <users.length; i++)
+        {
+            if ((this.users[i].email == this.email) && (this.users[i].password == this.password))
             {
-                if (this.users[i].email == this.email.value)
-                {
-                    if (this.users[i].password == this.password.value)
-                    {
-                        this.passwordValidation = true;
-                        VueCookies.set('username', this.users[i].username, "120min");
-                        VueCookies.set('email', this.email.value, "120min");
-                        VueCookies.set('password', this.password.value, "120min");
-                        VueCookies.set('id', this.users[i].id, "120min");
+                passwordValidation = false;
+                VueCookies.set('username', this.users[i].username, "120min");
+                VueCookies.set('email', this.email, "120min");
+                /* VueCookies.set('password', this.password, "120min"); */
+                VueCookies.set('id', this.users[i].id, "120min");
 
-                        window.location.href = '/';
-                        alert("Login successful");
-                    }
-                }
+                loginStore.loggedIn = this.users[i].username;
+
+                window.location.href = '/';
+                alert("Login successful");
+                break
             }
-             if(this.passwordValidation == false){ this.passwordError = "Inccorect password or username!"}
+            
         }
+    if(passwordValidation)
+    { 
+        this.passwordError = "Inccorect password or username!"
+    }
+    else 
+    {
+        this.passwordError = ""
+    }
+}
+
+async function signUpSubmit(){
+    if (username.lenght == 0)
+    {
+        this.usernameError = "Field is empty"
+    }
+    else{
+        this.usernameError = null
+    }
+    if (email.lenght == 0)
+    {
+        this.emailError = "Field is empty"
+    }
+    else{
+        this.emailError = null
+    }
+    
+    for (var i = 0; i <users.length; i++)
+    {
+        if(this.users[i].email == this.email)
+        {
+            this.signupvalidation = false;
+            this.emailError = "This email address is already un use!"
+            console.log(this.users[i].email)
+        }
+    }
+
+    if(password.length == 0)
+    {
+        this.passwordError = "Field is empty!";
+    }
+    else if(password.length>0 && password.length<8)
+    { 
+        this.passwordError = "Password is too short!"
+    }
+    else
+    {
+        this.passwordError = null
+    }
+
+    if(this.usernameError == null && this.emailError == null && this.passwordError == null)
+    {
+        if(this.signupvalidation == true)
+        {
+            const res = await axios.post(baseURL + "users",
+            {
+                username: this.username,
+                email: this.email,
+                password: this.password
+            });
+            alert("SignUp successful");
+            console.log(username)
+            console.log(email)
+            console.log(password)
+            
+        }
+    }
+}
 
 </script>
 
@@ -105,8 +176,8 @@ async function loginSubmit()
             </el-form>
             <div class="footer">
                 <span>
-                    <el-button @click="LogInModalVisible = false">Cancel</el-button>
-                    <el-button type="primary" @click="LogInModalVisible = false; loginSubmit()">
+                    <el-button @click = "LogInModalVisible = false" >Cancel</el-button>
+                    <el-button type="primary" @click="loginSubmit()">
                         LogIn
                     </el-button>
                 </span>
@@ -145,8 +216,8 @@ async function loginSubmit()
             </el-form>
             <div class="footer">
                 <span class="dialog-footer">
-                    <el-button @click="LogInModalVisible = false">Cancel</el-button>
-                    <el-button type="primary" @click="LogInModalVisible = false">
+                    <el-button @click = "LogInModalVisible = false">Cancel</el-button>
+                    <el-button type="primary" @click="signUpSubmit()">
                         SignUp
                     </el-button>
                 </span>

@@ -4,7 +4,8 @@ import axios from 'axios'
 export const useLoginStore = defineStore("login", {
   state: () => {
     return {
-      showModal: false
+      showModal: false,
+      loggedIn: ""
     };
   },
   actions: {
