@@ -7,17 +7,21 @@ import Login from './components/LogIn.vue'
 import Home from './views/Home.vue'
 import {usePokedexStore} from './store/pokedexStore.js'
 import {useLoginStore} from './store/loginStore.js'
+import Game from './components/Game.vue';
+import {useGameStore} from './store/gameStore.js'
 
+const gameStore = useGameStore();
 const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
 </script>
 
 <template>
   <div>
-    <Header  />
+    <Header />
     <RouterView />
+    <Game v-if="gameStore.showModal" />
     <Pokedex v-if="pokedexStore.showModal" />
-    <Login v-show="loginStore.showModal" />
+    <Login v-if="loginStore.showModal" />
   </div> 
 </template>
 

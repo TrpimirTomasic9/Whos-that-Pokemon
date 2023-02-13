@@ -20,14 +20,16 @@ let signup = ref(true)
 let usernameError = ref(null)
 let emailError = ref(null)
 let passwordError =ref(null)
-let signupvalidation = ref(false)
 
+const refresh_users = async () => {
+    const res = await axios.get(baseURL + 'users');
+    users = res.data;
+}
 
 onMounted(async () => {
     try {
-            const res = await axios.get(baseURL + 'users');
-            users = res.data;
-           /*  console.log(users) */
+            await refresh_users()
+            /*  console.log(users) */
 
             /* loginSubmit() */
         } catch (e) {
@@ -94,7 +96,10 @@ async function loginSubmit()
     }
 }
 
-async function signUpSubmit(){
+async function signUpSubmit()
+{
+    let signupvalidation = true;
+
     if (username.lenght == 0)
     {
         this.usernameError = "Field is empty"
@@ -110,11 +115,12 @@ async function signUpSubmit(){
         this.emailError = null
     }
     
+    await refresh_users()
     for (var i = 0; i <users.length; i++)
     {
         if(this.users[i].email == this.email)
         {
-            this.signupvalidation = false;
+            signupvalidation = false;
             this.emailError = "This email address is already un use!"
             console.log(this.users[i].email)
         }
@@ -135,7 +141,7 @@ async function signUpSubmit(){
 
     if(this.usernameError == null && this.emailError == null && this.passwordError == null)
     {
-        if(this.signupvalidation == true)
+        if(signupvalidation)
         {
             const res = await axios.post(baseURL + "users",
             {
@@ -156,7 +162,7 @@ async function signUpSubmit(){
 
 <template>
     <div v-if="login" >
-        <el-dialog v-model="LogInModalVisible" title="LogIn" width="50%" height="50%" center>
+        <el-dialog v-model="loginStore.showModal" title="LogIn" width="50%" height="50%" center>
             <el-form label-position='top' status-icon :label-width="80">
 
                 <el-form-item label="Email">
@@ -176,7 +182,7 @@ async function signUpSubmit(){
             </el-form>
             <div class="footer">
                 <span>
-                    <el-button @click = "LogInModalVisible = false" >Cancel</el-button>
+                    <el-button @click = "loginStore.showModal = false" >Cancel</el-button>
                     <el-button type="primary" @click="loginSubmit()">
                         LogIn
                     </el-button>
@@ -190,7 +196,7 @@ async function signUpSubmit(){
     </div>
 
     <div v-else>
-        <el-dialog v-model="LogInModalVisible" title="SignUp" width="50%" height="50%" center>
+        <el-dialog v-model="loginStore.showModal" title="SignUp" width="50%" height="50%" center>
             <el-form lebel-position='top' status-icon :label-width="80">
 
                 <el-form-item label="Username">
@@ -216,7 +222,7 @@ async function signUpSubmit(){
             </el-form>
             <div class="footer">
                 <span class="dialog-footer">
-                    <el-button @click = "LogInModalVisible = false">Cancel</el-button>
+                    <el-button @click = "loginStore.showModal = false">Cancel</el-button>
                     <el-button type="primary" @click="signUpSubmit()">
                         SignUp
                     </el-button>

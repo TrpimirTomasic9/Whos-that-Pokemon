@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-export const dexStore = defineStore("pokedex", {
+export const useGameStore = defineStore("game", {
   state: () => {
     return {
       showModal: false
