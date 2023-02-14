@@ -4,31 +4,15 @@
       "username": "Trpimir",
       "email": "ttom@gmail.com",
       "password": "Password123",
-      "id": 1
+      "id": 1,
+      "user_pokedex": []
     },
     {
       "username": "user2",
       "email": "user1@gmail.com",
       "password": "user12345",
-      "id": 2
-    },
-    {
-      "username": "asghilos",
-      "email": "sdfgdsfgh@aihdf.haf",
-      "password": "alsdfhliksadhikhalsdg",
-      "id": 3
-    },
-    {
-      "username": "asghilos",
-      "email": "sdfgdsfgh@aihdf.haf",
-      "password": "alsdfhliksadhikhalsdg",
-      "id": 4
-    },
-    {
-      "username": "Trpimir",
-      "email": "ttom1@gmail.com",
-      "password": "Password123",
-      "id": 5
+      "id": 2,
+      "user_pokedex": []
     }
   ]
 }

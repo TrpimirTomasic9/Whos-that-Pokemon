@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Sunny, Moon} from '@element-plus/icons-vue'
+import {Sunny, Moon, SwitchButton} from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import axios from 'axios';
@@ -9,8 +9,8 @@ import { useLoginStore } from '../store/loginStore';
 import { useGameStore } from '../store/gameStore';
 const PokemonStore = pokeStore();
 
-const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
+const pokedexStore = usePokedexStore();
 const gameStore = useGameStore();
 
 </script>
@@ -35,14 +35,17 @@ const gameStore = useGameStore();
                             <Sunny />
                         </el-icon></el-button>
                 </div>
-                <div>
+                <div v-if="loginStore.loggedIn">
                     <el-button  @click="pokedexStore.changeModal()" link><img class="pokedex" src="/src/assets/images/pokedex.png" /></el-button>
                 </div>
-                <div>
+                <div v-if="loginStore.loggedIn">
                     <el-button  @click="gameStore.changeModal()" link><img class="pokedex" src="/src/assets/images/joystick.png" /></el-button>
                 </div>
-                <div v-if="loginStore.loggedIn == ''">
+                <div v-if="!loginStore.loggedIn">
                     <el-button @click="loginStore.changeModal()">LogIn</el-button>
+                </div>
+                <div v-else>
+                    <el-button @click="loginStore.logOut()"><el-space size="small"><el-icon class="switchBtn" :size="15"><SwitchButton /></el-icon>LogOut</el-space></el-button>
                 </div>
             </el-space>
         </div>

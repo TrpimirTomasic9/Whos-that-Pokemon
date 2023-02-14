@@ -13,6 +13,8 @@ import {useGameStore} from './store/gameStore.js'
 const gameStore = useGameStore();
 const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
+
+loginStore.checkCookie()
 </script>
 
 <template>

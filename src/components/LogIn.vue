@@ -73,10 +73,12 @@ async function loginSubmit()
             if ((this.users[i].email == this.email) && (this.users[i].password == this.password))
             {
                 passwordValidation = false;
-                VueCookies.set('username', this.users[i].username, "120min");
-                VueCookies.set('email', this.email, "120min");
-                /* VueCookies.set('password', this.password, "120min"); */
-                VueCookies.set('id', this.users[i].id, "120min");
+                VueCookies.set('user', {
+                    "username": this.users[i].username,
+                    "email": this.email,
+                    "id": this.users[i].id,
+                    "user_pokedex": this.users[i].user_pokedex
+                }, "120min");
 
                 loginStore.loggedIn = this.users[i].username;
 
@@ -147,12 +149,10 @@ async function signUpSubmit()
             {
                 username: this.username,
                 email: this.email,
-                password: this.password
+                password: this.password,
+                user_pokedex: []
             });
             alert("SignUp successful");
-            console.log(username)
-            console.log(email)
-            console.log(password)
             
         }
     }
@@ -162,7 +162,7 @@ async function signUpSubmit()
 
 <template>
     <div v-if="login" >
-        <el-dialog v-model="loginStore.showModal" title="LogIn" width="50%" height="50%" center>
+        <el-dialog v-model="loginStore.showModal" title="LogIn" width="50%" height="50%" center @keyup.enter="loginSubmit">
             <el-form label-position='top' status-icon :label-width="80">
 
                 <el-form-item label="Email">
@@ -196,7 +196,7 @@ async function signUpSubmit()
     </div>
 
     <div v-else>
-        <el-dialog v-model="loginStore.showModal" title="SignUp" width="50%" height="50%" center>
+        <el-dialog v-model="loginStore.showModal" title="SignUp" width="50%" height="50%" center @keyup.enter="signUpSubmit">
             <el-form lebel-position='top' status-icon :label-width="80">
 
                 <el-form-item label="Username">
