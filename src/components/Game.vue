@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ArrowRight,} from '@element-plus/icons-vue'
 import { ref, computed } from 'vue'
-import axios from 'axios';
+import { createPinia } from "pinia";
+import axios from 'axios'
+import VueCookies from 'vue-cookies'
 import { pokeStore } from '../store/pokemonStore'
 import { usePokedexStore } from '../store/pokedexStore';
-
-import { useLoginStore } from '../store/loginStore';
 import { useGameStore } from '../store/gameStore';
+
 const PokemonStore = pokeStore();
 const pokedexStore = usePokedexStore();
 
@@ -18,6 +19,10 @@ let pokemonName = ref<string>('')
 let isLoading = ref<boolean>(true)
 
 let randomPokemon = ref<any>()
+
+var baseURL = 'http://localhost:3000/'
+var userURL = baseURL + "users";
+let correctlyAnsweredPokeIds = ref<number[]>([])
 
 async function getRandomPokemon() {
    isLoading.value = true
@@ -39,18 +44,35 @@ getRandomPokemon()
 function submitAnswer(){
    pokemonName.value = pokemonName.value.toLowerCase()
    if(pokemonName.value == randomPokemon.value.name){
+       pokedexStore.pushPokemon(randomPokemon.value.id)
+       pokedexStore.setUserPokedex()
        inccorect.value = false
        correct.value = true
        pokemonName.value = ''
        setTimeout(function() {
            getRandomPokemon()
-       }, 1500);
+       }, 2000);
    } else{
        console.log("Incorrect answer")
        correct.value = false
        inccorect.value = true
        pokemonName.value = ''
    }
+}
+
+async function saveUserPokemon()
+{
+    console.log(correctlyAnsweredPokeIds.value)
+    // @ts-ignore
+    let loggedUser = VueCookies.get('user')
+    let loggedUserId = loggedUser.id
+    /* const put = await axios.patch(baseURL + 'users/1', {user_pokedex: [1]} ); */
+    const res = await axios.put(baseURL + "users",
+            {
+                user_pokedex: []
+            });
+
+    console.log(loggedUserId)
 }
 </script>
 

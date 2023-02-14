@@ -6,7 +6,7 @@ export const useLoginStore = defineStore("login", {
   state: () => {
     return {
       showModal: false,
-      loggedIn: false
+      loggedIn: false,
     };
   },
   actions: {

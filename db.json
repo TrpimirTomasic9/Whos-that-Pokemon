@@ -5,7 +5,12 @@
       "email": "ttom@gmail.com",
       "password": "Password123",
       "id": 1,
-      "user_pokedex": []
+      "user_pokedex": [
+        104,
+        99,
+        7,
+        15
+      ]
     },
     {
       "username": "user2",

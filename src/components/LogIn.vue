@@ -3,8 +3,9 @@ import { ref, onMounted } from 'vue'
 import VueCookies from 'vue-cookies'
 import axios from 'axios';
 import { useLoginStore } from '../store/loginStore';
+import { usePokedexStore } from '../store/pokedexStore';
 
-const LogInModalVisible = ref(true)
+const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
 
 var baseURL = 'http://localhost:3000/'
@@ -76,11 +77,12 @@ async function loginSubmit()
                 VueCookies.set('user', {
                     "username": this.users[i].username,
                     "email": this.email,
-                    "id": this.users[i].id,
-                    "user_pokedex": this.users[i].user_pokedex
+                    "id": this.users[i].id
                 }, "120min");
 
                 loginStore.loggedIn = this.users[i].username;
+
+                pokedexStore.user_pokedex = this.users[i].user_pokedex
 
                 window.location.href = '/';
                 alert("Login successful");

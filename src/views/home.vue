@@ -2,49 +2,17 @@
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
 import { pokeStore } from '../store/pokemonStore'
+import { useLoginStore } from '../store/loginStore';
+
+const loginStore = useLoginStore();
 const PokemonStore = pokeStore();
 
-const LoggedIn = ref(false)
-
- let pokemonId = ref<any>()
-
- async function GetPokemons() {
-  try {
-    let response = await PokemonStore.getOnePokemon();
-    pokemonId.value = response;
-    
-    /* console.log(pokemonId.value) */
-  } catch (error) {
-    throw error;
-  }
-}
-
-GetPokemons()
-
-/* let allpokemons = [] */
-
-/* async function GetPokemons() {
-  try {
-    let response = await PokemonStore.getAllPokemons();
-    allpokemons.value = response;
-
-    let randomPokemon = allpokemons.value[Math.floor(Math.random() * 151) + 1]
-    console.log(randomPokemon)
-
-    let randomPokemonName = randomPokemon.name
-    console.log(randomPokemonName)
-  } catch (error) {
-    throw error;
-  }
-}
-
-GetPokemons() */
 </script>
 
 <template>
   <div class="common-layout">
       <img class="hero" src="src/assets/images/hero-image.jpg"/>
-      <div v-if="LoggedIn" class="hovertext" style="margin:0 auto;">
+      <div v-if="!loginStore.loggedIn" class="hovertext" style="margin:0 auto;">
         <img class="pokemonText" style="height: 150px; width: 350px; margin:0 auto;" src="src/assets/images/pokemon-text.png"/>
         <img class="pokeball" style="height: 250px; width: 250px; margin:0 auto;" src="/src/assets/images/logo.png"/>
       </div>

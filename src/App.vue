@@ -9,12 +9,17 @@ import {usePokedexStore} from './store/pokedexStore.js'
 import {useLoginStore} from './store/loginStore.js'
 import Game from './components/Game.vue';
 import {useGameStore} from './store/gameStore.js'
+import axios from 'axios';
 
 const gameStore = useGameStore();
 const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
 
 loginStore.checkCookie()
+pokedexStore.getUserPokedex()
+
+
+
 </script>
 
 <template>
