@@ -29,7 +29,7 @@ pokemonStore.getAllpokemon()
   <div>
     <Header />
     <RouterView />
-    <Game v-if="gameStore.showModal" />
+    <Game v-if="gameStore.showModal && !pokedexStore.showModal" />
     <Pokedex v-if="pokedexStore.showModal" />
     <Login v-if="loginStore.showModal" />
   </div> 

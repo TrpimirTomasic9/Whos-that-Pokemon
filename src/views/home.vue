@@ -1,29 +1,29 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import { ref } from 'vue'
-import { pokeStore } from '../store/pokemonStore'
 import { useLoginStore } from '../store/loginStore';
+import { useGameStore } from '../store/gameStore';
 
 const loginStore = useLoginStore();
-const PokemonStore = pokeStore();
+const gameStore = useGameStore();
 
+const openModal = () => {
+  if (loginStore.loggedIn) {
+    gameStore.changeModal()
+  }
+  else {
+    loginStore.changeModal()
+  }
+}
 </script>
 
 <template>
   <div class="common-layout">
       <img class="hero" src="src/assets/images/hero-image.jpg"/>
-      <div v-if="!loginStore.loggedIn" class="hovertext" style="margin:0 auto;">
+      <div class="hovertext" style="margin:0 auto;"  v-on:click="openModal()">
         <img class="pokemonText" style="height: 150px; width: 350px; margin:0 auto;" src="src/assets/images/pokemon-text.png"/>
         <img class="pokeball" style="height: 250px; width: 250px; margin:0 auto;" src="/src/assets/images/logo.png"/>
       </div>
-        <template>
-          <div>
-        <el-dialog title="game" width="50%" height="50%" center>
-          <el-form label-position='top' status-icon ref="ruleFormRef" :label-width="80">
-          </el-form>
-        </el-dialog>
-      </div>
-      </template>
   </div>
 </template>
 
