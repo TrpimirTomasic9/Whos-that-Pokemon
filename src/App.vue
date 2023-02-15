@@ -11,6 +11,8 @@ import Game from './components/Game.vue';
 import {useGameStore} from './store/gameStore.js'
 import axios from 'axios';
 
+import { pokeStore } from './store/pokemonStore'
+
 const gameStore = useGameStore();
 const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
@@ -18,8 +20,9 @@ const loginStore = useLoginStore();
 loginStore.checkCookie()
 pokedexStore.getUserPokedex()
 
+const pokemonStore = pokeStore()
 
-
+pokemonStore.getAllpokemon()
 </script>
 
 <template>
