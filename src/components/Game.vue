@@ -60,20 +60,6 @@ function submitAnswer(){
    }
 }
 
-async function saveUserPokemon()
-{
-    console.log(correctlyAnsweredPokeIds.value)
-    // @ts-ignore
-    let loggedUser = VueCookies.get('user')
-    let loggedUserId = loggedUser.id
-    /* const put = await axios.patch(baseURL + 'users/1', {user_pokedex: [1]} ); */
-    const res = await axios.put(baseURL + "users",
-            {
-                user_pokedex: []
-            });
-
-    console.log(loggedUserId)
-}
 </script>
 
 <template>
