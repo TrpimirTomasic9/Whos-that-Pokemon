@@ -41,7 +41,7 @@ const pokemonResults = computed(() => {
     </div>
 </template>
 
-<style>
+<style scoped>
 .searchDivBg{
     position:absolute;
     top: 0vh;
@@ -61,7 +61,8 @@ const pokemonResults = computed(() => {
 
 }
 .pokemonText{
-    max-width: 50%;
+    width: 50%;
+    max-width: 200px;
     justify-self: center;
 }
 .searchHeader{

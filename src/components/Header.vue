@@ -27,7 +27,7 @@ const searchStore = useSearchStore();
             </div>
             <el-space size="large">
                 <div>
-                    <input @click="searchStore.changeModal()" class="search" type="text" placeholder="Search pokemon" v-model="searchStore.value"/>
+                    <input @click="searchStore.showModal=true" class="search" type="text" placeholder="Search pokemon" v-model="searchStore.value"/>
                 </div>
                 <div>
                     <el-button link><el-icon :size="20">
