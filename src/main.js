@@ -9,8 +9,7 @@ import { createPinia } from "pinia";
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
 
-/* Vue.prototype.$http = axios */
-
+import 'element-plus/theme-chalk/dark/css-vars.css'
 
 const app = createApp(App)
 

@@ -43,7 +43,7 @@ showUserPokedex()
         </template>
         <template #default>
             <div class="scrollbar-div">
-                <el-row gutter="5">
+                <el-row :gutter=5>
                     <el-col  :sm="24" :md="12" :lg="8" :xl="6" v-for="pokemon in pokemons[0]" class="imageCard">
                         <el-card :body-style="{ padding: '0px' }">
                             <div class="singlePokemon">

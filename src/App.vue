@@ -34,7 +34,7 @@ pokemonStore.getAllpokemon()
     <Game v-if="gameStore.showModal && !pokedexStore.showModal" />
     <Pokedex v-if="pokedexStore.showModal" />
     <Login v-if="loginStore.showModal" />
-    <Search v-if="searchStore.showModal"/>
+    <Search v-show="searchStore.showModal"/>
   </div> 
 </template>
 

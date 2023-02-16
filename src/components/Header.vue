@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import {Sunny, Moon, SwitchButton} from '@element-plus/icons-vue'
-import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import axios from 'axios';
-import { pokeStore } from '../store/pokemonStore'
 import { usePokedexStore } from '../store/pokedexStore';
 import { useLoginStore } from '../store/loginStore';
 import { useGameStore } from '../store/gameStore';
 import { useSearchStore } from '../store/searchStore';
+import { useDark, useToggle } from '@vueuse/core'
 
-const PokemonStore = pokeStore();
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
+
 const loginStore = useLoginStore();
 const pokedexStore = usePokedexStore();
 const gameStore = useGameStore();
@@ -18,7 +18,7 @@ const searchStore = useSearchStore();
 </script>
 
 <template>
-    <el-header class="navbar">
+    <el-header class="navbar" :class="{dark:isDark}">
         <div class="navbar-content">
             <div>
                 <router-link to="/">
@@ -30,10 +30,10 @@ const searchStore = useSearchStore();
                     <input @click="searchStore.showModal=true" class="search" type="text" placeholder="Search pokemon" v-model="searchStore.value"/>
                 </div>
                 <div>
-                    <el-button link><el-icon :size="20">
+                    <el-button @click="toggleDark()" link><el-icon :size="20">
                             <Moon />
                         </el-icon></el-button>
-                    <el-button link><el-icon :size="20">
+                    <el-button @click="toggleDark()" link><el-icon :size="20">
                             <Sunny />
                         </el-icon></el-button>
                 </div>
@@ -44,10 +44,10 @@ const searchStore = useSearchStore();
                     <el-button  @click="gameStore.changeModal()" link><img class="pokedex" src="/src/assets/images/joystick.png" /></el-button>
                 </div>
                 <div v-if="!loginStore.loggedIn">
-                    <el-button @click="loginStore.changeModal()">LogIn</el-button>
+                    <el-button class="loginBtn" @click="loginStore.changeModal()">LogIn</el-button>
                 </div>
                 <div v-else>
-                    <el-button @click="loginStore.logOut()"><el-space size="small"><el-icon class="switchBtn" :size="15"><SwitchButton /></el-icon>LogOut</el-space></el-button>
+                    <el-button class="loginBtn" @click="loginStore.logOut()"><el-space size="small"><el-icon class="switchBtn" :size="15"><SwitchButton /></el-icon>LogOut</el-space></el-button>
                 </div>
             </el-space>
         </div>
@@ -65,6 +65,11 @@ const searchStore = useSearchStore();
   right: 0;
   opacity: 0.9;
 }
+
+.navbar.dark {
+    background-color: #141414;
+}
+
 .navbar-content{
     align-items: center;
     justify-content: space-between;

@@ -85,10 +85,10 @@ function submitAnswer(){
                     </el-row>
                 </div>
                 <span>
-                    <el-button id="submitBtn" @click="submitAnswer()" :disabled="!pokemonName.length">Submit</el-button>
-                    <el-button id="skipBtn" @click="getRandomPokemon() ">Skip
+                    <el-button color="#008000" class="submitBtn" @click="submitAnswer()" :disabled="!pokemonName.length">Submit</el-button>
+                    <el-button color="#FFA500" class="skipBtn" @click="getRandomPokemon() ">Skip
                         <el-icon class="el-icon--right"><ArrowRight /></el-icon></el-button>
-                    <el-button id="pokedexGameBtn" @click="pokedexStore.changeModal()">Pokedex</el-button>
+                    <el-button type="primary" plain class="pokedexGameBtn" @click="pokedexStore.changeModal()">Pokedex</el-button>
                 </span>
             </div>
         </template>
@@ -112,17 +112,14 @@ function submitAnswer(){
 .inputDiv{
     padding-bottom: 15px;
 }
-#skipBtn{
-    background-color: #FFD700;
+.skipBtn{
     border: 1.5px solid black;
 }
-#submitBtn{
-    background-color:black;
+.submitBtn{
     border: 1.5px solid black;
-    color: yellowgreen;
+    color: yellow;
 }
-#pokedexGameBtn{
-    background-color:whitesmoke;
+.pokedexGameBtn{
     border: 1.5px solid black;
 }
 .modalHeader{
