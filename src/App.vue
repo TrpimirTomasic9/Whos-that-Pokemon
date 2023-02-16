@@ -10,19 +10,21 @@ import {useLoginStore} from './store/loginStore.js'
 import Game from './components/Game.vue';
 import {useGameStore} from './store/gameStore.js'
 import axios from 'axios';
+import Search from './components/Search.vue';
+import { useSearchStore } from './store/searchStore';
 
 import { pokeStore } from './store/pokemonStore'
 
 const gameStore = useGameStore();
 const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
+const searchStore = useSearchStore();
+const pokemonStore = pokeStore()
 
 loginStore.checkCookie()
 pokedexStore.getUserPokedex()
-
-const pokemonStore = pokeStore()
-
 pokemonStore.getAllpokemon()
+
 </script>
 
 <template>
@@ -32,6 +34,7 @@ pokemonStore.getAllpokemon()
     <Game v-if="gameStore.showModal && !pokedexStore.showModal" />
     <Pokedex v-if="pokedexStore.showModal" />
     <Login v-if="loginStore.showModal" />
+    <Search v-if="searchStore.showModal"/>
   </div> 
 </template>
 

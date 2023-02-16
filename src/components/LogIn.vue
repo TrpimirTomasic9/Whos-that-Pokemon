@@ -18,9 +18,9 @@ let password = ref("")
 let login = ref(true)
 let signup = ref(true)
 
-let usernameError = ref(null)
-let emailError = ref(null)
-let passwordError =ref(null)
+let usernameError = ref("")
+let emailError = ref("")
+let passwordError =ref("")
 
 const refresh_users = async () => {
     const res = await axios.get(baseURL + 'users');
@@ -29,45 +29,43 @@ const refresh_users = async () => {
 
 onMounted(async () => {
     try {
-            await refresh_users()
-            /*  console.log(users) */
+          await refresh_users()
 
-            /* loginSubmit() */
         } catch (e) {
             console.error(e)
         }
   })
 
 async function loginSubmit()
-{
-    if(email.lenght == 0)
+{ 
+    if (email.value == "")
     {
-        this.emailError = "Field is empty"
+        emailError.value = "Field is empty"
     }
     else
     {
-        this.emailError = null
+        emailError.value = null
     }
 
-    if(password.length == 0)
+    if(password.value == "")
     {
-        this.passwordError = "Field is empty!";
+        passwordError.value = "Field is empty!";
     }
-    else if(password.length>0 && password.length<8)
+    else if(password.value.length>0 && password.value.length<8)
     { 
-        this.passwordError = "Password is too short!"
+        passwordError.value = "Password is too short!"
     }
     else
     {
-        this.passwordError = null
+        passwordError.value = null
     }
 
-    /* const res = await axios.get(userURL);
-    this.users = res.data; */
-    let passwordValidation = true;
+    if (emailError.value || passwordError.value) {
+        return
+    }
 
-    /* console.log(this.email)
-    console.log(this.password) */
+
+    let passwordValidation = true;
 
     for (var i = 0; i <users.length; i++)
         {
@@ -96,7 +94,7 @@ async function loginSubmit()
     }
     else 
     {
-        this.passwordError = ""
+        this.passwordError = null 
     }
 }
 
@@ -104,19 +102,32 @@ async function signUpSubmit()
 {
     let signupvalidation = true;
 
-    if (username.lenght == 0)
+    if (username.value == "")
     {
-        this.usernameError = "Field is empty"
+        usernameError.value = "Field is empty"
     }
     else{
-        this.usernameError = null
+        usernameError.value = ""
     }
-    if (email.lenght == 0)
+    if (email.value == "")
     {
-        this.emailError = "Field is empty"
+        emailError.value = "Field is empty"
     }
     else{
-        this.emailError = null
+        emailError.value = ""
+    }
+
+    if(password.value == "")
+    {
+        passwordError.value = "Field is empty!";
+    }
+    else if(password.value.length >0 && password.value.length<8)
+    { 
+        passwordError.value = "Password is too short!"
+    }
+    else
+    {
+        passwordError.value = ""
     }
     
     await refresh_users()
@@ -125,25 +136,12 @@ async function signUpSubmit()
         if(this.users[i].email == this.email)
         {
             signupvalidation = false;
-            this.emailError = "This email address is already un use!"
-            console.log(this.users[i].email)
+            emailError.value = "This email address is already un use!"
         }
     }
 
-    if(password.length == 0)
-    {
-        this.passwordError = "Field is empty!";
-    }
-    else if(password.length>0 && password.length<8)
-    { 
-        this.passwordError = "Password is too short!"
-    }
-    else
-    {
-        this.passwordError = null
-    }
 
-    if(this.usernameError == null && this.emailError == null && this.passwordError == null)
+    if(usernameError.value == "" && emailError.value == "" && passwordError.value == "")
     {
         if(signupvalidation)
         {
@@ -154,8 +152,16 @@ async function signUpSubmit()
                 password: this.password,
                 user_pokedex: []
             });
+
+            VueCookies.set('user', {
+                    "username": res.data.username,
+                    "email": res.data.email,
+                    "id": res.data.id
+                }, "120min");
+
             alert("SignUp successful");
-            
+            window.location.href = '/';
+                
         }
     }
 }

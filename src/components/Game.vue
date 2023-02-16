@@ -53,7 +53,6 @@ function submitAnswer(){
            getRandomPokemon()
        }, 2000);
    } else{
-       console.log("Incorrect answer")
        correct.value = false
        inccorect.value = true
        pokemonName.value = ''

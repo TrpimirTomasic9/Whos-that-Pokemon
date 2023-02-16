@@ -28,9 +28,7 @@ async function showUserPokedex()
 {
     loading.value = true
     pokedex.value = pokedexStore.userPokedex
-    const res = await axios.get(baseURL + 'pokemons');
-    pokemons.value = res.data;
-    console.log(pokedex.value)
+    pokemons.value = pokemonStore.pokemons
     loading.value = false
 }
 

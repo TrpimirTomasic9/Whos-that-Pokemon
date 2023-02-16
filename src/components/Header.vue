@@ -7,11 +7,13 @@ import { pokeStore } from '../store/pokemonStore'
 import { usePokedexStore } from '../store/pokedexStore';
 import { useLoginStore } from '../store/loginStore';
 import { useGameStore } from '../store/gameStore';
-const PokemonStore = pokeStore();
+import { useSearchStore } from '../store/searchStore';
 
+const PokemonStore = pokeStore();
 const loginStore = useLoginStore();
 const pokedexStore = usePokedexStore();
 const gameStore = useGameStore();
+const searchStore = useSearchStore();
 
 </script>
 
@@ -25,7 +27,7 @@ const gameStore = useGameStore();
             </div>
             <el-space size="large">
                 <div>
-                    <input class="search" type="text" placeholder="Search pokemon" />
+                    <input @click="searchStore.changeModal()" class="search" type="text" placeholder="Search pokemon" v-model="searchStore.value"/>
                 </div>
                 <div>
                     <el-button link><el-icon :size="20">
@@ -50,12 +52,11 @@ const gameStore = useGameStore();
             </el-space>
         </div>
     </el-header>
-
 </template>
 
 <style scoped>
 .navbar {
-  z-index: 1;
+  z-index: 5;
   background-color: whitesmoke;
   padding: 5px 30px;
   position: fixed;
