@@ -131,7 +131,7 @@ function submitAnswer(){
 }
 .whosThatPokeImg{
     width: 100%;
-    max-width: 85%;
+    max-width: 75%;
     text-align: center;
 }
 .incorrect{

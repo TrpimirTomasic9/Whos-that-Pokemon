@@ -2,17 +2,16 @@
 import { ref } from 'vue'
 import { usePokedexStore } from '../store/pokedexStore.js';
 import { pokeStore } from '../store/pokemonStore';
-import axios from 'axios'
-import VueCookies from 'vue-cookies'
 
 const pokedexStore = usePokedexStore()
 const pokemonStore = pokeStore()
+const customColor = ref('#008000')
 let pokemons = ref<any>()
 let pokedex = ref<any>()
 let loading = ref<boolean>(true)
 let dialogWidth = ref<number>(250)
+let myPokemonProgress = ref<number>(0)
 
-var baseURL = 'http://localhost:3000/'
 
 const dialogWidthCompute = () => {
     dialogWidth.value = (window.innerWidth >= 1100) ? 900 : (window.innerWidth >= 800) ? 700 : 400;
@@ -24,12 +23,14 @@ onresize = (event) => {
     dialogWidthCompute()
 }
 
+myPokemonProgress.value = parseFloat(((pokedexStore.userPokedex.length / 151) * 100).toFixed(1))
+
 async function showUserPokedex()
 {
     loading.value = true
     pokedex.value = pokedexStore.userPokedex
     pokemons.value = pokemonStore.pokemons
-    loading.value = false
+    loading.value = false 
 }
 
 showUserPokedex()
@@ -50,17 +51,31 @@ showUserPokedex()
                                     <img v-if="pokedex.includes(pokemon.id)" :src="pokemon.img">
                                     <el-skeleton class="skeleton-img" v-else align="center">
                                         <template #template>
-                                            <el-skeleton-item variant="image" style="width: 100%; height: 100px" />
+                                            <img class="pokedex-texImg" style="width: 100px; height: 97px" src="/src/assets/images/questionmark.png" />
                                         </template>
                                     </el-skeleton>
-                                <div class="pokeNameDiv">
+                                <div class="pokeNameDiv" v-if="pokedex.includes(pokemon.id)" :src="pokemon.img">
                                     <span>{{ pokemon.name }}</span>
+                                </div>
+                                <div class="pokeNameDiv" v-else>
+                                    <span>unknown</span>
                                 </div>
                             </div>
                         </el-card>
                     </el-col>
                 </el-row>
             </div>
+            <el-row justify="space-evenly">
+                <el-col :span="20">
+                    <el-progress
+                        :text-inside="true"
+                        :stroke-width="20"
+                        :percentage="myPokemonProgress"
+                        :color="customColor"
+                    />
+                </el-col>
+                <span class="statisticNum" >{{ pokedexStore.userPokedex.length }}/151</span>
+            </el-row>
         </template>
     </el-dialog>
 </template>
@@ -71,6 +86,11 @@ showUserPokedex()
     max-width: 30%;
     text-align: center;
 }
+
+.el-dialog__header{
+    margin-bottom: -20px;
+}
+
 .singlePokemon{
     width: 100%;
     text-align: center;
@@ -81,12 +101,18 @@ showUserPokedex()
     opacity: 0.7;
 }
 .modal{
-    width: 40%;
     max-height: 75vh;
 }
 .scrollbar-div{
     overflow-y: scroll;
     max-height: 55vh;
     overflow-x: hidden;
+}
+.el-row.is-justify-space-evenly{
+    padding-top: 9px;
+}
+.statisticNum{
+    padding-top: 2px;
+    padding-right: 10px;
 }
 </style>

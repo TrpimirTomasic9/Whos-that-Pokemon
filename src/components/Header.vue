@@ -30,10 +30,10 @@ const searchStore = useSearchStore();
                     <input @click="searchStore.showModal=true" class="search" type="text" placeholder="Search pokemon" v-model="searchStore.value"/>
                 </div>
                 <div>
-                    <el-button @click="toggleDark()" link><el-icon :size="20">
+                    <el-button @click="toggleDark()" link type="primary" ><el-icon :size="20">
                             <Moon />
                         </el-icon></el-button>
-                    <el-button @click="toggleDark()" link><el-icon :size="20">
+                    <el-button @click="toggleDark()" link type="warning" ><el-icon :size="20">
                             <Sunny />
                         </el-icon></el-button>
                 </div>
@@ -47,7 +47,7 @@ const searchStore = useSearchStore();
                     <el-button class="loginBtn" @click="loginStore.changeModal()">LogIn</el-button>
                 </div>
                 <div v-else>
-                    <el-button class="loginBtn" @click="loginStore.logOut()"><el-space size="small"><el-icon class="switchBtn" :size="15"><SwitchButton /></el-icon>LogOut</el-space></el-button>
+                    <el-button class="loginBtn" @click="loginStore.logOut()"><el-space size="small"><el-icon class="switchBtn" :size="15" color="red"><SwitchButton /></el-icon>LogOut</el-space></el-button>
                 </div>
             </el-space>
         </div>
