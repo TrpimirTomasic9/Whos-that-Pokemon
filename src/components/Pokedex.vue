@@ -35,6 +35,56 @@ async function showUserPokedex()
 
 showUserPokedex()
 
+const color_picker = (type_name, default_color) => {
+    switch (type_name) {
+        case "normal":
+            return "#A8A878"
+        case "fighting":
+            return "#C03028"
+        case "flying":
+            return "#A890F0"
+        case "poison":
+            return "#A040A0"
+        case "ground":
+            return "#E0C068"
+        case "rock":
+            return "#B8A038"
+        case "bug":
+            return "#A8B820"
+        case "ghost":
+            return "#705898"
+        case "steel":
+            return "#B8B8D0"
+        case "fire":
+            return "#F08030"
+        case "water":
+            return "#6890F0"
+        case "grass":
+            return "#78C850"
+        case "electric":
+            return "#F8D030"
+        case "psychic":            
+            return "#F85888"
+        case "ice":
+            return "#98D8D8"
+        case "dragon":
+            return "#7038F8"
+        case "dark":
+            return "#705848"
+        case "fairy":
+            return "#EE99AC"
+        default:
+            return default_color
+    }
+}
+
+const background_image_calculator = (pokemon) => {
+    let type1 = color_picker(pokemon.type1, "");
+    let type2 = color_picker(pokemon.type2, type1)
+    return `linear-gradient(to right, ${type1}, ${type2}) 1`
+
+} 
+
 </script>
 
 <template>
@@ -46,9 +96,9 @@ showUserPokedex()
             <div class="scrollbar-div">
                 <el-row :gutter=5>
                     <el-col  :sm="24" :md="12" :lg="8" :xl="6" v-for="pokemon in pokemons[0]" class="imageCard">
-                        <el-card :body-style="{ padding: '0px' }">
+                        <el-card :class="pokedex.includes(pokemon.id)? pokemon.type:''" :body-style="{ padding: '0px' }" :style="{'border-image': background_image_calculator(pokemon)}">
                             <div class="singlePokemon">
-                                    <img v-if="pokedex.includes(pokemon.id)" :src="pokemon.img">
+                                    <img v-if="pokedex.includes(pokemon.id)" :src="pokemon.image">
                                     <el-skeleton class="skeleton-img" v-else align="center">
                                         <template #template>
                                             <img class="pokedex-texImg" style="width: 100px; height: 97px" src="/src/assets/images/questionmark.png" />
@@ -115,4 +165,10 @@ showUserPokedex()
     padding-top: 2px;
     padding-right: 10px;
 }
+
+.imageCard{
+    padding-top: 4px;
+}
+
+
 </style>

@@ -9,5 +9,27 @@
 }
 html, body, header {
   height: 100%;
+}
 
+.normal_normal {border-color: #A8A878} 
+.fighting_fighting {border-color: #C03028} 
+.flying_flying {border-color: #A890F0} 
+.poison_poison {border-color: #A040A0} 
+.ground {border-color: #E0C068}
+.rock {border-color: #B8A038}
+.bug {border-color: #A8B820 }
+.ghost {border-color: #705898}
+.steel {border-color:#B8B8D0}
+.fire {border-color: #F08030}
+.water {border-color: #6890F0}
+.grass {border-color: #78C850}
+.electric {border-color: #F8D030}
+.psychic{border-color: #F85888}
+.ice {border-color: #98D8D8 }
+.dragon {border-color: #7038F8 }
+.dark {border-color: #705848 }
+.fairy{border-color: #EE99AC}
+
+:root {
+  --primary-color: #7038F8
 }
