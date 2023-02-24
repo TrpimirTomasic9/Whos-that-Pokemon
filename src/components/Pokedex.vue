@@ -96,7 +96,7 @@ const background_image_calculator = (pokemon) => {
             <div class="scrollbar-div">
                 <el-row :gutter=5>
                     <el-col  :sm="24" :md="12" :lg="8" :xl="6" v-for="pokemon in pokemons[0]" class="imageCard">
-                        <el-card :class="pokedex.includes(pokemon.id)? pokemon.type:''" :body-style="{ padding: '0px' }" :style="{'border-image': background_image_calculator(pokemon)}">
+                        <el-card :body-style="{ padding: '0px' }" :style="{'border-image':pokedex.includes(pokemon.id)? background_image_calculator(pokemon): ''}">
                             <div class="singlePokemon">
                                     <img v-if="pokedex.includes(pokemon.id)" :src="pokemon.image">
                                     <el-skeleton class="skeleton-img" v-else align="center">
