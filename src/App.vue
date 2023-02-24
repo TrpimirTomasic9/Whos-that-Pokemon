@@ -23,6 +23,7 @@ const pokemonStore = pokeStore()
 
 loginStore.checkCookie()
 pokedexStore.getUserPokedex()
+pokedexStore.getUserFavourites()
 pokemonStore.getAllpokemon()
 
 </script>

@@ -38,6 +38,9 @@
         54,
         2,
         128
+      ],
+      "favourites": [
+        1
       ]
     },
     {
@@ -45,7 +48,10 @@
       "email": "user1@gmail.com",
       "password": "user12345",
       "id": 2,
-      "user_pokedex": []
+      "user_pokedex": [],
+      "favourites": [
+        1
+      ]
     }
   ],
   "pokemons": [

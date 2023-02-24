@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { usePokedexStore } from '../store/pokedexStore.js';
 import { pokeStore } from '../store/pokemonStore';
+import  SinglePokemon from './SinglePokemon.vue'
 
 const pokedexStore = usePokedexStore()
 const pokemonStore = pokeStore()
@@ -9,9 +10,14 @@ const customColor = ref('#008000')
 let pokemons = ref<any>()
 let pokedex = ref<any>()
 let loading = ref<boolean>(true)
+let showSinglePokemon = ref<boolean>(false)
 let dialogWidth = ref<number>(250)
 let myPokemonProgress = ref<number>(0)
+let selectedPokemon =ref<any>()
 
+watch(() => {selectedPokemon.value; showSinglePokemon.value}, () => {
+    console.log(showSinglePokemon.value)
+})
 
 const dialogWidthCompute = () => {
     dialogWidth.value = (window.innerWidth >= 1100) ? 900 : (window.innerWidth >= 800) ? 700 : 400;
@@ -85,19 +91,34 @@ const background_image_calculator = (pokemon) => {
 
 } 
 
+function getSinglePokemon(pokemon)
+{
+    if(pokedex.value.includes(pokemon.id))
+    {
+        selectedPokemon.value = pokemon
+        showSinglePokemon.value = true
+    }
+    
+}
+
+const favourites = computed(() => {
+    return pokedexStore.favourites
+})
+
 </script>
 
 <template>
-    <el-dialog class="modal" v-if="!loading" v-model="pokedexStore.showModal" title="Pokedex" center>
+    <el-dialog class="modal" v-if="!loading && !showSinglePokemon" v-model="pokedexStore.showModal" title="Pokedex" center>
         <template #header>
             <img class="pokedex-texImg" src="/src/assets/images/pokedex-text.png" />
         </template>
         <template #default>
             <div class="scrollbar-div">
                 <el-row :gutter=5>
-                    <el-col  :sm="24" :md="12" :lg="8" :xl="6" v-for="pokemon in pokemons[0]" class="imageCard">
+                    <el-col  :sm="24" :md="12" :lg="8" :xl="6" v-for="pokemon in pokemons[0]" :key='pokemon.id' class="imageCard">
                         <el-card :body-style="{ padding: '0px' }" :style="{'border-image':pokedex.includes(pokemon.id)? background_image_calculator(pokemon): ''}">
-                            <div class="singlePokemon">
+                            <div class="singlePokemon" @click="getSinglePokemon(pokemon)">
+                                <img v-if="favourites.includes(pokemon.id) && pokedex.includes(pokemon.id)" class="favourite" src="/src/assets/images/heart.png" />
                                     <img v-if="pokedex.includes(pokemon.id)" :src="pokemon.image">
                                     <el-skeleton class="skeleton-img" v-else align="center">
                                         <template #template>
@@ -105,7 +126,7 @@ const background_image_calculator = (pokemon) => {
                                         </template>
                                     </el-skeleton>
                                 <div class="pokeNameDiv" v-if="pokedex.includes(pokemon.id)" :src="pokemon.img">
-                                    <span>{{ pokemon.name }}</span>
+                                    <span>{{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}</span>
                                 </div>
                                 <div class="pokeNameDiv" v-else>
                                     <span>unknown</span>
@@ -128,6 +149,7 @@ const background_image_calculator = (pokemon) => {
             </el-row>
         </template>
     </el-dialog>
+    <SinglePokemon v-if="showSinglePokemon" :selectedPokemon = "selectedPokemon" @closeSinglePokemon="showSinglePokemon=false" />
 </template>
 
 <style>
@@ -169,6 +191,12 @@ const background_image_calculator = (pokemon) => {
 .imageCard{
     padding-top: 4px;
 }
-
+.favourite{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
 
 </style>

@@ -75,12 +75,14 @@ async function loginSubmit()
                 VueCookies.set('user', {
                     "username": this.users[i].username,
                     "email": this.email,
-                    "id": this.users[i].id
+                    "id": this.users[i].id,
+                    "favourites": this.users[i].favourites
                 }, "120min");
 
                 loginStore.loggedIn = this.users[i].username;
 
                 pokedexStore.user_pokedex = this.users[i].user_pokedex
+                pokedexStore.favourites = this.users[i].favourites
 
                 window.location.href = '/';
                 alert("Login successful");
@@ -150,13 +152,15 @@ async function signUpSubmit()
                 username: this.username,
                 email: this.email,
                 password: this.password,
-                user_pokedex: []
+                user_pokedex: [],
+                favourites: []
             });
 
             VueCookies.set('user', {
                     "username": res.data.username,
                     "email": res.data.email,
-                    "id": res.data.id
+                    "id": res.data.id,
+                    "favourites": res.data.favourites
                 }, "120min");
 
             alert("SignUp successful");

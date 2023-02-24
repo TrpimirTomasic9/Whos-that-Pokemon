@@ -82,7 +82,7 @@ const background_image_calculator = (pokemon) => {
                                     <img :src="pokemon.image">
                                    
                                 <div class="pokeNameDiv">
-                                    <span>{{ pokemon.name }}</span>
+                                    <span>{{ pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1) }}</span>
                                 </div>
                             </div>
                         </el-card>
