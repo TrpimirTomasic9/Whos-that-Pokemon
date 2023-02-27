@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ArrowRight,} from '@element-plus/icons-vue'
-import { ref, computed } from 'vue'
+import { ArrowRight, InfoFilled} from '@element-plus/icons-vue'
+import { ElNotification } from 'element-plus'
+import { ref, computed ,h } from 'vue'
 import { createPinia } from "pinia";
 import axios from 'axios'
 import VueCookies from 'vue-cookies'
@@ -17,6 +18,7 @@ let correct = ref<boolean>(false)
 let inccorect = ref<boolean>(false)
 let pokemonName = ref<string>('')
 let isLoading = ref<boolean>(true)
+let letter = ref<number>(0)
 
 let randomPokemon = ref<any>()
 
@@ -31,12 +33,12 @@ async function getRandomPokemon() {
  try {
    let response = await PokemonStore.getOnePokemon();
    randomPokemon.value = response;
-   
    console.log(randomPokemon.value)
    isLoading.value = false
  } catch (error) {
    throw error;
  }
+ letter.value = 0
 }
 
 getRandomPokemon()
@@ -59,6 +61,16 @@ function submitAnswer(){
    }
 }
 
+const help = () => {
+    letter.value +=1
+    ElNotification({
+    title: 'Help',
+    message: `First characters of Pokemon name: ${randomPokemon.value.name.slice(0, letter.value).toUpperCase()}`,
+    duration: 2500,
+    showClose: false
+  })
+}
+
 </script>
 
 <template>
@@ -68,6 +80,9 @@ function submitAnswer(){
         </template>
         <template #default>
             <div class="modalHeader">
+                <el-button class="infoBtn" @click="help" link type="warning" >
+                    <el-icon :size="20"><InfoFilled /></el-icon>
+                </el-button>
                 <img :src="randomPokemon.image" width="250" height="250" />
             </div>
             <div class="footer">
@@ -144,5 +159,10 @@ function submitAnswer(){
 }
 .correctBold, .incorrectBold{
     font-weight: bold;
+}
+.infoBtn{
+    position: absolute;
+    right: 80px;
+    top: 10px;
 }
 </style>

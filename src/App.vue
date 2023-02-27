@@ -11,9 +11,11 @@ import Game from './components/Game.vue';
 import {useGameStore} from './store/gameStore.js'
 import axios from 'axios';
 import Search from './components/Search.vue';
+import VueCookies from 'vue-cookies'
 import { useSearchStore } from './store/searchStore';
 
 import { pokeStore } from './store/pokemonStore'
+import { ElNotification } from 'element-plus';
 
 const gameStore = useGameStore();
 const pokedexStore = usePokedexStore();
@@ -26,6 +28,15 @@ pokedexStore.getUserPokedex()
 pokedexStore.getUserFavourites()
 pokemonStore.getAllpokemon()
 
+if (loginStore.loggedIn) {
+  ElNotification({
+    title: 'Successfully logged in',
+    message: `Hello ${VueCookies.get('user').username}`,
+    type: 'success',
+    showClose: false,
+    duration: 2500
+  })
+}
 </script>
 
 <template>

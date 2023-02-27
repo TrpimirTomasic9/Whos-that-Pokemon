@@ -85,7 +85,6 @@ async function loginSubmit()
                 pokedexStore.favourites = this.users[i].favourites
 
                 window.location.href = '/';
-                alert("Login successful");
                 break
             }
             
@@ -163,7 +162,6 @@ async function signUpSubmit()
                     "favourites": res.data.favourites
                 }, "120min");
 
-            alert("SignUp successful");
             window.location.href = '/';
                 
         }
