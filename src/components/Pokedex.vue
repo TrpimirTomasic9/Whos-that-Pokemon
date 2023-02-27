@@ -3,6 +3,7 @@ import { ref, watch, computed } from 'vue'
 import { usePokedexStore } from '../store/pokedexStore.js';
 import { pokeStore } from '../store/pokemonStore';
 import  SinglePokemon from './SinglePokemon.vue'
+import { ArrowDown } from '@element-plus/icons-vue'
 
 const pokedexStore = usePokedexStore()
 const pokemonStore = pokeStore()
@@ -14,6 +15,7 @@ let showSinglePokemon = ref<boolean>(false)
 let dialogWidth = ref<number>(250)
 let myPokemonProgress = ref<number>(0)
 let selectedPokemon =ref<any>()
+let displayId = ref<number>(1)
 
 watch(() => {selectedPokemon.value; showSinglePokemon.value}, () => {
     console.log(showSinglePokemon.value)
@@ -101,8 +103,33 @@ function getSinglePokemon(pokemon)
     
 }
 
-const favourites = computed(() => {
+const favourites = computed<any>(() => {
     return pokedexStore.favourites
+})
+
+const favouriteList = computed(()=>{
+    return (pokemons.value)[0].filter(pokemon => favourites.value.includes(pokemon.id))
+})
+
+
+const guessedList = computed(()=>{
+    return (pokemons.value)[0].filter(pokemon => pokedex.value.includes(pokemon.id))
+})
+
+
+const displayList = computed(()=>{
+    if(displayId.value == 1)
+    {
+        return (pokemons.value)[0]
+    }
+    else if(displayId.value == 2)
+    {
+        return favouriteList.value
+    }
+    else if(displayId.value == 3)
+    {
+        return guessedList.value
+    }
 })
 
 </script>
@@ -113,9 +140,26 @@ const favourites = computed(() => {
             <img class="pokedex-texImg" src="/src/assets/images/pokedex-text.png" />
         </template>
         <template #default>
+            <el-row justify="center">
+                <el-dropdown>
+                <span class="el-dropdown-link">
+                    Sort
+                    <el-icon class="el-icon--right">
+                        <arrow-down />
+                    </el-icon>
+                </span>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item @click="displayId=1">All</el-dropdown-item>
+                        <el-dropdown-item @click="displayId=3">Guessed</el-dropdown-item>
+                        <el-dropdown-item @click="displayId=2">Favourites</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+            </el-row>
             <div class="scrollbar-div">
                 <el-row :gutter=5>
-                    <el-col  :sm="24" :md="12" :lg="8" :xl="6" v-for="pokemon in pokemons[0]" :key='pokemon.id' class="imageCard">
+                    <el-col  :sm="24" :md="12" :lg="8" :xl="6" v-for="pokemon in displayList" :key='pokemon.id' class="imageCard">
                         <el-card :body-style="{ padding: '0px' }" :style="{'border-image':pokedex.includes(pokemon.id)? background_image_calculator(pokemon): ''}">
                             <div class="singlePokemon" @click="getSinglePokemon(pokemon)">
                                 <img v-if="favourites.includes(pokemon.id) && pokedex.includes(pokemon.id)" class="favourite" src="/src/assets/images/heart.png" />

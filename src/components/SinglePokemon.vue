@@ -21,7 +21,6 @@ const setPokemonAtributes = () => {
     (window.innerWidth >= 1200) ? setPokemonLg() : setPokemonSm();
 }
 
-setPokemonAtributes()
 
 function setPokemonLg() {
     setTimeout(function() {
@@ -47,7 +46,8 @@ function setPokemonSm(){
         pokemonAttributes.value[7] = `Speed: ${props.selectedPokemon.speed}`
     }, 100);
 }
-setPokemonLg()
+
+setPokemonAtributes()
 
 </script>
 
