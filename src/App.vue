@@ -37,6 +37,15 @@ if (loginStore.loggedIn) {
     duration: 2500
   })
 }
+else
+  {
+    ElNotification({
+    title: 'Successfully logged out',
+    type: 'success',
+    showClose: false,
+    duration: 2500
+  })
+  }
 </script>
 
 <template>
