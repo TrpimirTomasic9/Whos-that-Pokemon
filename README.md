@@ -1,29 +1,44 @@
-# PokemonApp
+# Who's that Pokemon
 
-This template should help get you started developing with Vue 3 in Vite.
+![Who's that Pokemon](./Who'sThatPokemon.png)
 
-## Recommended IDE Setup
+Welcome to the **Who's that Pokemon** application! This application allows you to explore the world of Pokemon, where you can search, browse, and add your favorite Pokemons to your favorites. Here's how you can use the application:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## How to Use the Application
 
-## Customize configuration
+1. ✍️ **Registration and Login**: Register or log in to access all the features of the application.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+2. 🔍 **Pokemon Search**: Use the search to find a specific Pokemon by entering its name or number.
 
-## Project Setup
+3. ❤ **Adding to Favorites**: Add a Pokemon to your favorites by clicking the heart icon next to its name.
 
-```sh
-npm install
-```
+4. 📊 **Viewing Statistics**: View the statistics of the selected Pokemon to learn more about it.
 
-### Compile and Hot-Reload for Development
+5. 📒 **Filtering Pokemon**: Filter Pokemons by different criteria, such as favorites or caught Pokemons.
 
-```sh
-npm run dev
-```
+6. 🌙 **Night Mode**: Turn on or off night mode by clicking on the crescent moon symbol.
 
-### Compile and Minify for Production
+## How to Run the Application
 
-```sh
-npm run build
-```
+1. **Running the Local JSON Server**: Open a terminal and in the application directory, run the following command:
+
+   json-server --watch db.json
+
+3. **Running the Application**: After starting the JSON server, run the application using the following command:
+
+   npm run dev
+
+## Technologies Used
+
+- **Vue.js**: A powerful JavaScript framework for building user interfaces.
+- **Vue Router**: A solution for managing routes in Vue applications.
+- **Vue Cookies**: For managing cookies and authentication state.
+- **Element Plus**: A component library for Vue.js.
+- **JSON Server**: Simulates a REST API with a local JSON database.
+
+## Author
+
+The application was developed by [Trpimir Tomašić].
+
+Thank you for using the Who's that Pokemon application! If you have any questions or feedback, feel free to contact us. Enjoy exploring the world of Pokemon! 🌟
+
