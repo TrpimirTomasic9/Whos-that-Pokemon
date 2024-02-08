@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { ArrowRight, InfoFilled} from '@element-plus/icons-vue'
 import { ElNotification } from 'element-plus'
-import { ref, computed ,h } from 'vue'
-import { createPinia } from "pinia";
-import axios from 'axios'
-import VueCookies from 'vue-cookies'
+import { ref } from 'vue'
 import { pokeStore } from '../store/pokemonStore'
 import { usePokedexStore } from '../store/pokedexStore';
 import { useGameStore } from '../store/gameStore';
@@ -13,18 +10,13 @@ const PokemonStore = pokeStore();
 const pokedexStore = usePokedexStore();
 
 let gameStore = useGameStore()
-
 let correct = ref<boolean>(false)
 let inccorect = ref<boolean>(false)
 let pokemonName = ref<string>('')
 let isLoading = ref<boolean>(true)
 let letter = ref<number>(0)
-
 let randomPokemon = ref<any>()
 
-var baseURL = 'http://localhost:3000/'
-var userURL = baseURL + "users";
-let correctlyAnsweredPokeIds = ref<number[]>([])
 
 async function getRandomPokemon() {
    isLoading.value = true
@@ -83,7 +75,7 @@ const help = () => {
                 <el-button class="infoBtn" @click="help" link type="warning" >
                     <el-icon :size="20"><InfoFilled /></el-icon>
                 </el-button>
-                <img :src="randomPokemon.image" width="250" height="250" />
+                <img class="img" :src="randomPokemon.image" width="250" height="250" />
             </div>
             <div class="footer">
                 <div class="inputDiv">
@@ -99,12 +91,18 @@ const help = () => {
                         <span class="correctBold">Correct answer!</span>
                     </el-row>
                 </div>
-                <span>
-                    <el-button color="#008000" class="submitBtn" @click="submitAnswer()" :disabled="!pokemonName.length">Submit</el-button>
-                    <el-button color="#FFA500" class="skipBtn" @click="getRandomPokemon() ">Skip
-                        <el-icon class="el-icon--right"><ArrowRight /></el-icon></el-button>
-                    <el-button type="primary" plain class="pokedexGameBtn" @click="pokedexStore.changeModal()">Pokedex</el-button>
-                </span>
+                <el-row justify="center">
+                    <el-col :xl="3" :lg="5" :md="6" :sm="10">
+                        <el-button color="#008000" class="submitBtn" @click="submitAnswer()" :disabled="!pokemonName.length">Submit</el-button>
+                    </el-col>
+                    <el-col :xl="3" :lg="5" :md="6" :sm="10">
+                        <el-button color="#FFA500" class="skipBtn" @click="getRandomPokemon() ">Skip
+                            <el-icon class="el-icon--right"><ArrowRight /></el-icon></el-button>
+                    </el-col>
+                    <el-col :xl="3" :lg="5" :md="6" :sm="10">
+                        <el-button type="primary" plain class="pokedexGameBtn" @click="pokedexStore.changeModal()">Pokedex</el-button>
+                    </el-col>
+                </el-row>
             </div>
         </template>
     </el-dialog>
@@ -129,6 +127,7 @@ const help = () => {
 }
 .skipBtn{
     border: 1.5px solid black;
+    margin: 0;
 }
 .submitBtn{
     border: 1.5px solid black;
@@ -165,4 +164,25 @@ const help = () => {
     right: 80px;
     top: 10px;
 }
+@media (max-width: 850px) {
+    .img {
+       width: 180px;
+       height: 180px;
+    }
+}
+@media (max-width: 670px) {
+    .img {
+        width: 120px;
+       height: 120px;
+    }
+}
+@media (max-width: 623px) {
+    .footer {
+        align-items: center;
+    }
+    .skipBtn{
+        
+    }
+}
+
 </style>

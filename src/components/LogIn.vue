@@ -9,14 +9,12 @@ const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
 
 var baseURL = 'http://localhost:3000/'
-var userURL = baseURL + "users";
 
 let users = ref(null)
 let username = ref("")
 let email = ref("")
 let password = ref("")
 let login = ref(true)
-let signup = ref(true)
 
 let usernameError = ref("")
 let emailError = ref("")

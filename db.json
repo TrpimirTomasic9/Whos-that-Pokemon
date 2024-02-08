@@ -4,7 +4,7 @@
       "username": "Trpimir",
       "email": "ttom@gmail.com",
       "password": "Password123",
-      "id": 1,
+      "id": "1",
       "user_pokedex": [
         104,
         99,
@@ -39,17 +39,21 @@
         2,
         128,
         133,
-        6
+        6,
+        32,
+        109
       ],
       "favourites": [
-        1
+        1,
+        2,
+        6
       ]
     },
     {
       "username": "user2",
       "email": "user1@gmail.com",
       "password": "user12345",
-      "id": 2,
+      "id": "2",
       "user_pokedex": [],
       "favourites": [
         1

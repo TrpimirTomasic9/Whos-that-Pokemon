@@ -22,30 +22,26 @@ const pokedexStore = usePokedexStore();
 const loginStore = useLoginStore();
 const searchStore = useSearchStore();
 const pokemonStore = pokeStore()
+let login = ref(false)
 
 loginStore.checkCookie()
 pokedexStore.getUserPokedex()
 pokedexStore.getUserFavourites()
 pokemonStore.getAllpokemon()
 
-if (loginStore.loggedIn) {
+if (loginStore.loggedIn && login) {
   ElNotification({
     title: 'Successfully logged in',
     message: `Hello ${VueCookies.get('user').username}`,
     type: 'success',
     showClose: false,
-    duration: 2500
+    duration: 2500,
+    offset: 50
   })
+  login == true
+
 }
-else
-  {
-    ElNotification({
-    title: 'Successfully logged out',
-    type: 'success',
-    showClose: false,
-    duration: 2500
-  })
-  }
+
 </script>
 
 <template>
@@ -58,4 +54,5 @@ else
     <Search v-show="searchStore.showModal"/>
   </div> 
 </template>
+
 
